@@ -2,33 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_fragment3"
+        android:id="@+id/item_1StockList"
         android:enabled="true"
-        android:icon="@drawable/item_home"
-        android:title="홈"/>
+
+        android:title="재고현황"/>
 
     <item
-        android:id="@+id/item_fragment1"
+        android:id="@+id/item_2Price"
         android:enabled="true"
-        android:icon="@drawable/item_category"
-        android:title="카테고리"/>
+
+        android:title="가격"/>
 
     <item
-        android:id="@+id/item_writeactivity"
+        android:id="@+id/item_3TransactionList"
         android:enabled="true"
-        android:icon="@drawable/item_wirtepost"
-        android:title="게시글 작성"/>
+
+        android:title="거래 기록"/>
 
     <item
-        android:id="@+id/item_fragment4"
+        android:id="@+id/item_4Statics"
         android:enabled="true"
-        android:icon="@drawable/item_chatting"
-        android:title="채팅"/>
 
-    <item
-        android:id="@+id/item_fragment2"
-        android:enabled="true"
-        android:icon="@drawable/item_profile"
-        android:title="프로필"/>
+        android:title="통계"/>
 
 </menu>
