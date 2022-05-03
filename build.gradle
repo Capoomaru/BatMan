@@ -7,6 +7,9 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.2"
 
+        //firebase
+        classpath 'com.google.gms:google-services:4.3.10'
+
 //        def sqlite_version = "2.2.0"
 //        // Java language implementation
 //        implementation "androidx.sqlite:sqlite:$sqlite_version"

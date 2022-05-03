@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "795632085962",
+    "project_id": "batman-e92db",
+    "storage_bucket": "batman-e92db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795632085962:android:776f5662c5c4fb6dbabd33",
+        "android_client_info": {
+          "package_name": "com.example.batman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795632085962-2091ccbf15drlbj4fu0m559422jda017.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmtqL_LsaT67Q6nHwrq2OHXyoBMzCp2q0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795632085962-2091ccbf15drlbj4fu0m559422jda017.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

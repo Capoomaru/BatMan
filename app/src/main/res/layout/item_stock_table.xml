@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:weightSum="1.085"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/batName"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:fontFamily="@font/lotte_mart_dream_bold"
+        android:background="@drawable/rect_sellmode"
+        android:text="배터리명"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:gravity="center"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/purchase_price"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.35"
+        android:fontFamily="@font/lotte_mart_dream_bold"
+        android:background="@drawable/rect_managemode"
+        android:text="매입가"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:gravity="center"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.15"
+        android:fontFamily="@font/lotte_mart_dream_bold"
+        android:background="@drawable/rect_managemode"
+        android:text="수량"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:gravity="center"
+        >
+
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/minus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.085"
+        android:background="@drawable/ic_baseline_indeterminate_check_box_24"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        >
+
+    </ImageButton>
+
+
+
+</LinearLayout>

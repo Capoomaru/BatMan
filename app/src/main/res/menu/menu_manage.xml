@@ -8,19 +8,13 @@
         android:title="재고현황"/>
 
     <item
-        android:id="@+id/item_2Price"
-        android:enabled="true"
-
-        android:title="가격"/>
-
-    <item
-        android:id="@+id/item_3TransactionList"
+        android:id="@+id/item_2TransactionList"
         android:enabled="true"
 
         android:title="거래 기록"/>
 
     <item
-        android:id="@+id/item_4Statics"
+        android:id="@+id/item_3Statics"
         android:enabled="true"
 
         android:title="통계"/>

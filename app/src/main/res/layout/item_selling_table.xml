@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:weightSum="1.09"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/batName"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.6"
+        android:fontFamily="@font/lotte_mart_dream_bold"
+        android:background="@drawable/rect_sellmode"
+        android:text="배터리명"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:gravity="center"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/selling_price"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:fontFamily="@font/lotte_mart_dream_bold"
+        android:background="@drawable/rect_managemode"
+        android:text="판매가"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:gravity="center"
+        >
+
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/minus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.09"
+        android:background="@drawable/ic_baseline_indeterminate_check_box_24"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        >
+
+    </ImageButton>
+
+</LinearLayout>
