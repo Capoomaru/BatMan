@@ -12,5 +12,7 @@ public class SellingPriceModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_selling_price_table);
         ((TextView)findViewById(R.id.modify)).setText("완료");
+
+
     }
 }

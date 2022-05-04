@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceTableHolder> {
     private ArrayList<BatteryData> list;
     private Context context;
+    private MinusClickListener minusClickListener;
 
     SellingPriceTableAdapter(ArrayList<BatteryData> list ) {this.list = list;}
 
@@ -35,6 +36,7 @@ public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceT
     @Override
     public void onBindViewHolder(@NonNull SellingPriceTableHolder holder, int position) {
         holder.onBind(list.get(position));
+        holder.setMinusClickListener(minusClickListener);
 
     }
 
@@ -47,11 +49,20 @@ public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceT
 class SellingPriceTableHolder extends RecyclerView.ViewHolder {
     TextView batNameView;
     TextView sellingPriceView;
+    ImageView minusButton;
+    MinusClickListener minusClickListener;
 
     public SellingPriceTableHolder(@NonNull View itemView) {
         super(itemView);
         batNameView = itemView.findViewById(R.id.batName);
         sellingPriceView = itemView.findViewById(R.id.selling_price);
+        minusButton = itemView.findViewById(R.id.minus);
+        minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     void onBind(BatteryData batteryData) {
@@ -59,5 +70,14 @@ class SellingPriceTableHolder extends RecyclerView.ViewHolder {
 
         batNameView.setText(batteryData.getBatName());
         sellingPriceView.setText(format.format(batteryData.getSellingPrice()));
+
     }
+
+    void setMinusClickListener(MinusClickListener minusClickListener) {
+        this.minusClickListener = minusClickListener;
+    }
+}
+
+interface MinusClickListener {
+    void onMinusCLick(View view, int position);
 }
