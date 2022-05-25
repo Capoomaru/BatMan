@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BatMan</string>
+    <string name="price_format">%,2d</string>
 </resources>

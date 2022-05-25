@@ -1,6 +1,11 @@
 package com.example.batman.DB;
 
-public class BatteryData {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class BatteryData implements Serializable {
     private String batName;
 
     public String getBatName() {

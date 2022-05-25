@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BatMan">
-        <activity android:name=".SellingPriceModifyActivity"></activity>
+        <activity
+            android:name=".AddStockActivity"
+            android:exported="false" />
+        <activity android:name=".AddTransactionActivity" />
+        <activity android:name=".SellingPriceModifyActivity" />
         <activity android:name=".SellMainActivity" />
         <activity android:name=".SelectModeActivity">
             <intent-filter>

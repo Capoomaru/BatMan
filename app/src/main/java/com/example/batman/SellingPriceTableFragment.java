@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.batman.DB.BatteryData;
+import com.example.batman.adapter.SellingPriceTableAdapter;
 
 import java.util.ArrayList;
 
@@ -56,17 +57,21 @@ public class SellingPriceTableFragment extends Fragment {
         ArrayList<BatteryData> batteryList = new ArrayList<>();
 
         for(int i=0;i<30;i++)
-            batteryList.add(new BatteryData("batName",50000,100000,"batID",10));
+            batteryList.add(new BatteryData("batName",50000,100000*i,"batID"+i,10));
 
         RecyclerView recyclerView = v.findViewById(R.id.rv_list);
-        SellingPriceTableAdapter sellingPriceTableAdapter = new SellingPriceTableAdapter(batteryList);
+        SellingPriceTableAdapter sellingPriceTableAdapter = new SellingPriceTableAdapter(batteryList, 0);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(sellingPriceTableAdapter);
 
         v.findViewById(R.id.modify).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(SellingPriceModifyActivity.class);
+                Intent intent = getActivity().getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("batteryList", batteryList);
+                intent.setClass(getActivity(), SellingPriceModifyActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -87,6 +92,11 @@ public class SellingPriceTableFragment extends Fragment {
                 msgBuilder.create();
                 msgBuilder.show();
             }
+        });
+
+        v.findViewById(R.id.add_button).setOnClickListener(view -> {
+            Log.i("onclick(): ","add");
+            startActivity(AddTransactionActivity.class);
         });
 
         return v;
