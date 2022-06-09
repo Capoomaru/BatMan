@@ -21,37 +21,20 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
     EditText sellingPriceView;
     ImageView minusButton;
     MinusClickListener minusClickListener;
-    ITextWatcher nameWatcher, priceWatcher;
+    ICallBackTextWatcher nameWatcher, priceWatcher;
 
-    public interface ITextWatcher {
-        String name = "";
-        // you can add/remove methods as you please, maybe you dont need this much
-        void beforeTextChanged(int position, CharSequence s, int start, int count, int after);
-
-        void onTextChanged(int position, CharSequence s, int start, int before, int count);
-
-        void afterTextChanged(int position, Editable s);
-    }
-
-    public SellingPriceTableHolder(@NonNull View itemView, ITextWatcher nameWatcher, ITextWatcher priceWatcher) {
+    public SellingPriceTableHolder(@NonNull View itemView, ICallBackTextWatcher nameWatcher, ICallBackTextWatcher priceWatcher) {
         super(itemView);
         batNameView = itemView.findViewById(R.id.batName);
         sellingPriceView = itemView.findViewById(R.id.selling_price);
         minusButton = itemView.findViewById(R.id.minus);
-        minusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.w("onclick(minus) :",getAdapterPosition()+"minus");
-
-            }
-        });
+        minusButton.setOnClickListener(view -> Log.w("onclick(minus) :",getAdapterPosition()+"minus"));
 
         this.nameWatcher = nameWatcher;
         this.priceWatcher = priceWatcher;
         TextWatcher nameTextWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                nameWatcher.beforeTextChanged(getAdapterPosition(), s, start, count, after);
             }
 
             @Override
@@ -61,7 +44,6 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
 
             @Override
             public void afterTextChanged(Editable s) {
-                nameWatcher.afterTextChanged(getAdapterPosition(), s);
             }
         };
 
@@ -70,7 +52,6 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
             private DecimalFormat decimalFormat = new DecimalFormat("#,###");
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                priceWatcher.beforeTextChanged(getAdapterPosition(), s, start, count, after);
             }
 
             @Override
@@ -85,7 +66,6 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
 
             @Override
             public void afterTextChanged(Editable s) {
-                priceWatcher.afterTextChanged(getAdapterPosition(), s);
                 if(s.toString().equals(""))
                     sellingPriceView.setText("0");
             }

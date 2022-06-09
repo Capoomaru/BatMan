@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.example.batman.DB.BatteryDB;
 import com.example.batman.DB.BatteryData;
+import com.example.batman.adapter.StockTableAdapter;
 import com.example.batman.selectMode.SelectModeActivity;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;

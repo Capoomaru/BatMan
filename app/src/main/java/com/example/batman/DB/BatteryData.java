@@ -3,11 +3,13 @@ package com.example.batman.DB;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class BatteryData implements Serializable {
+public class BatteryData implements Serializable, Cloneable {
     private String batName;
     private int purchasePrice;
     private int sellingPrice;
@@ -91,5 +93,23 @@ public class BatteryData implements Serializable {
         result = 31 * result + sellingPrice;
         result = 31 * result + count;
         return result;
+    }
+
+    @NonNull
+    @Override
+    protected BatteryData clone() throws CloneNotSupportedException {
+        return (BatteryData) super.clone();
+    }
+
+    public static ArrayList<BatteryData> cloneList(ArrayList<BatteryData> sourceList) {
+        ArrayList<BatteryData> destList = new ArrayList<>();
+        for(BatteryData source : sourceList) {
+            try {
+                destList.add(source.clone());
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
+        return destList;
     }
 }

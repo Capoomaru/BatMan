@@ -127,11 +127,6 @@ public class SellingPriceTableFragment extends Fragment {
                     Log.w("snapshot error:", error.getMessage());
                     return;
                 }
-//                value.forEach(snapshot -> {
-//                    if(!batteryList.contains((BatteryData)snapshot.toObject(BatteryDB.class)))
-//                        batteryList.add((BatteryData)snapshot.toObject(BatteryDB.class));
-//                });
-//                recyclerView.getAdapter().notifyDataSetChanged();
                 value.getDocumentChanges().forEach(documentChange -> {
                    switch (documentChange.getType()) {
                        case ADDED:

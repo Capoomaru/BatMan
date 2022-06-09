@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.DB.BatteryData;
-import com.example.batman.adapter.SellingPriceTableAdapter;
+import com.example.batman.adapter.StockTableAdapter;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class StockTableModifyActivity extends AppCompatActivity {
     @Override
@@ -25,7 +27,7 @@ public class StockTableModifyActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_stock_table);
 
         Intent intent = getIntent();
-        ArrayList<BatteryData> batteryList = (ArrayList<BatteryData>) intent.getSerializableExtra("batteryList");
+        ArrayList<BatteryData> batteryList = BatteryData.cloneList((ArrayList<BatteryData>) intent.getSerializableExtra("batteryList"));
 
         RecyclerView recyclerView = findViewById(R.id.rv_list);
         StockTableAdapter sellingPriceTableAdapter = new StockTableAdapter(batteryList, true);
@@ -35,26 +37,38 @@ public class StockTableModifyActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.modify)).setText("완료");
 
         findViewById(R.id.modify).setOnClickListener(v -> {
+            ArrayList<BatteryData> originList = (ArrayList<BatteryData>) intent.getSerializableExtra("batteryList");
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+            AlertDialog.Builder msgBuilder = new AlertDialog.Builder(StockTableModifyActivity.this)
+                    .setTitle("수정")
+                    .setMessage("입력된 수정을 반영하시겠습니까?")
+                    .setPositiveButton("네", (dialog, index) -> {
+                        for(int i=0;i<batteryList.size();i++) {
+                            if(!batteryList.get(i).equals(originList.get(i))) {
+                                Log.i("modify : ", "not match" + i);
+                                db.collection("Stock").document(batteryList.get(i).getBatName())
+                                        .set(batteryList.get(i));
+                                db.collection("Stock").document(batteryList.get(i).getBatName())
+                                        .update("LastUpdate", new Date(System.currentTimeMillis()));
+                            }
+                        }
+                        finish();
+                    })
+                    .setNegativeButton("아니요", (dialog, which) -> finish());
+            msgBuilder.create();
+            msgBuilder.show();
         });
 
-        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("onclick(): ","back");
-                AlertDialog.Builder msgBuilder = new AlertDialog.Builder(StockTableModifyActivity.this)
-                        .setTitle("모드 선택으로 돌아가기")
-                        .setMessage("모드 선택화면으로 돌아가시겠습니까?")
-                        .setPositiveButton("네", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                onBackPressed();
-                            }
-                        })
-                        .setNegativeButton("아니요", new DialogInterface.OnClickListener(){@Override public void onClick(DialogInterface dialog, int which) { }});
-                msgBuilder.create();
-                msgBuilder.show();
-            }
+        findViewById(R.id.back).setOnClickListener(v -> {
+            Log.i("onclick(): ","back");
+            AlertDialog.Builder msgBuilder = new AlertDialog.Builder(StockTableModifyActivity.this)
+                    .setTitle("수정 취소")
+                    .setMessage("수정을 취소하시겠습니까?")
+                    .setPositiveButton("네", (dialog, i) -> onBackPressed())
+                    .setNegativeButton("아니요", (dialog, which) -> { });
+            msgBuilder.create();
+            msgBuilder.show();
         });
 
         findViewById(R.id.add_button).setOnClickListener(view -> {

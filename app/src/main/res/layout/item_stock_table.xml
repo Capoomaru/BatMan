@@ -7,7 +7,7 @@
     android:weightSum="1.085"
     android:orientation="horizontal">
 
-    <TextView
+    <EditText
         android:id="@+id/batName"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -18,11 +18,12 @@
         android:textSize="15dp"
         android:textColor="#000000"
         android:gravity="center"
+        android:enabled="false"
         >
 
-    </TextView>
+    </EditText>
 
-    <TextView
+    <EditText
         android:id="@+id/purchase_price"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -31,13 +32,15 @@
         android:background="@drawable/rect_managemode"
         android:text="매입가"
         android:textSize="15dp"
+        android:inputType="number"
         android:textColor="#000000"
         android:gravity="center"
+        android:enabled="false"
         >
 
-    </TextView>
+    </EditText>
 
-    <TextView
+    <EditText
         android:id="@+id/count"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -46,11 +49,13 @@
         android:background="@drawable/rect_managemode"
         android:text="수량"
         android:textSize="15dp"
+        android:inputType="number"
         android:textColor="#000000"
         android:gravity="center"
+        android:enabled="false"
         >
 
-    </TextView>
+    </EditText>
 
     <ImageButton
         android:id="@+id/minus"

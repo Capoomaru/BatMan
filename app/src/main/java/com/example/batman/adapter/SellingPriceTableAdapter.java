@@ -44,29 +44,14 @@ public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceT
         *   문제점) 리사이클러뷰에서 EditText의 값을 변경하고 스크롤하게 될 경우 변경된 뷰의 값이 실제 데이터(모델)에 업데이트되지 않아서 데이터 유실이 발생함
         *   해결책) 이를 방지하기위해 ITextWatcher interface를 구현하고 이를 넘겨줌으로써 컨트롤러에서 뷰의 값을 실제 데이터(모델)에 업데이트한다.
         *  */
-        SellingPriceTableHolder.ITextWatcher nameWatcher = new SellingPriceTableHolder.ITextWatcher() {
-            @Override
-            public void beforeTextChanged(int position, CharSequence s, int start, int count, int after) {
-
-            }
+        ICallBackTextWatcher nameWatcher = new ICallBackTextWatcher() {
 
             @Override
             public void onTextChanged(int position, CharSequence s, int start, int before, int count) {
                 list.get(position).setBatName(s.toString());
             }
-
-            @Override
-            public void afterTextChanged(int position, Editable s) {
-
-            }
         };
-        SellingPriceTableHolder.ITextWatcher priceWatcher = new SellingPriceTableHolder.ITextWatcher() {
-
-            @Override
-            public void beforeTextChanged(int position, CharSequence s, int start, int count, int after) {
-
-            }
-
+        ICallBackTextWatcher priceWatcher = new ICallBackTextWatcher() {
             @Override
             public void onTextChanged(int position, CharSequence s, int start, int before, int count) {
 
@@ -74,11 +59,6 @@ public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceT
                     list.get(position).setSellingPrice(0);
                 else
                     list.get(position).setSellingPrice(Integer.parseInt(s.toString().replaceAll(",","")));
-            }
-
-            @Override
-            public void afterTextChanged(int position, Editable s) {
-
             }
         };
 
