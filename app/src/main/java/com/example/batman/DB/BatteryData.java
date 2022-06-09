@@ -4,9 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class BatteryData implements Serializable {
     private String batName;
+    private int purchasePrice;
+    private int sellingPrice;
+    private int count;
 
     public String getBatName() {
         return batName;
@@ -32,14 +37,6 @@ public class BatteryData implements Serializable {
         this.sellingPrice = sellingPrice;
     }
 
-    public String getBatID() {
-        return batID;
-    }
-
-    public void setBatID(String batID) {
-        this.batID = batID;
-    }
-
     public int getCount() {
         return count;
     }
@@ -48,16 +45,51 @@ public class BatteryData implements Serializable {
         this.count = count;
     }
 
-    private int purchasePrice;
-    private int sellingPrice;
-    private String batID;
-    private int count;
+    public BatteryData() {
+        this("",0,0,0);
+    }
 
-    public BatteryData(String batName, int purchasePrice, int sellingPrice, String batID, int count) {
+    public BatteryData(String batName, int purchasePrice, int sellingPrice, int count) {
         this.batName = batName;
         this.purchasePrice = purchasePrice;
         this.sellingPrice = sellingPrice;
-        this.batID = batID;
         this.count = count;
+    }
+
+    @Override
+    public String toString() {
+        return batName;
+    }
+
+    public static ArrayList<String> toNameArray(ArrayList<BatteryData> arrayList) {
+        ArrayList<String> nameList = new ArrayList<>(arrayList.size());
+
+        for (BatteryData batteryData : arrayList) {
+            nameList.add(batteryData.getBatName());
+        }
+
+        return nameList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BatteryData that = (BatteryData) o;
+
+        if (purchasePrice != that.purchasePrice) return false;
+        if (sellingPrice != that.sellingPrice) return false;
+        if (count != that.count) return false;
+        return batName.equals(that.batName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = batName.hashCode();
+        result = 31 * result + purchasePrice;
+        result = 31 * result + sellingPrice;
+        result = 31 * result + count;
+        return result;
     }
 }

@@ -42,6 +42,7 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 Log.w("onclick(minus) :",getAdapterPosition()+"minus");
+
             }
         });
 

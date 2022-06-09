@@ -28,6 +28,7 @@
         </View>
 
         <TextView
+            android:id="@+id/modify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lotte_mart_dream_bold"

@@ -17,7 +17,8 @@
         <activity android:name=".AddTransactionActivity" />
         <activity android:name=".SellingPriceModifyActivity" />
         <activity android:name=".SellMainActivity" />
-        <activity android:name=".SelectModeActivity">
+        <activity android:name=".StockTableModifyActivity" />
+        <activity android:name=".selectMode.SelectModeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

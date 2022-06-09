@@ -28,6 +28,7 @@
         </View>
 
         <TextView
+            android:id="@+id/complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lotte_mart_dream_bold"
@@ -73,8 +74,8 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="25dp"
             android:background="@drawable/ic_spinner_box"
-            android:gravity="center"
             android:textAlignment="center"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@id/batNameView">
 
         </Spinner>
@@ -82,7 +83,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/batCountLine"
+        android:id="@+id/inventoryCountLine"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
@@ -91,7 +92,7 @@
         app:layout_constraintTop_toBottomOf="@id/batNameLine">
 
         <TextView
-            android:id="@+id/batCountView"
+            android:id="@+id/inventoryCountView"
             android:layout_width="78dp"
             android:layout_height="match_parent"
             android:text="재고 수량"
@@ -104,16 +105,17 @@
         </TextView>
 
         <EditText
-            android:id="@+id/batCount"
+            android:id="@+id/inventoryCount"
             android:layout_width="127dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="25dp"
             android:background="@drawable/ic_input_box"
             android:inputType="number"
             android:text="1"
+            android:focusable="false"
             android:gravity="center"
             android:textAlignment="center"
-            app:layout_constraintStart_toEndOf="@id/batCountView">
+            app:layout_constraintStart_toEndOf="@id/inventoryCountView">
 
         </EditText>
 
@@ -126,7 +128,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/batCountLine">
+        app:layout_constraintTop_toBottomOf="@id/inventoryCountLine">
 
         <TextView
             android:id="@+id/isStoreView"
@@ -327,7 +329,7 @@
             android:layout_marginLeft="25dp"
             android:background="@drawable/ic_input_box"
             android:inputType="number"
-            android:text="1"
+            android:text="0"
             android:gravity="center"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/priceView">
@@ -337,7 +339,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/priceSumLine"
+        android:id="@+id/countLine"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
@@ -346,7 +348,45 @@
         app:layout_constraintTop_toBottomOf="@id/priceLine">
 
         <TextView
-            android:id="@+id/priceSumView"
+            android:id="@+id/countView"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:text="수       량"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_marginLeft="41dp"
+            app:layout_constraintStart_toStartOf="parent">
+        </TextView>
+
+        <EditText
+            android:id="@+id/count"
+            android:layout_width="127dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/ic_input_box"
+            android:inputType="number"
+            android:text="1"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/countView">
+
+        </EditText>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/priceTotalLine"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/countLine">
+
+        <TextView
+            android:id="@+id/priceTotalView"
             android:layout_width="78dp"
             android:layout_height="match_parent"
             android:text="총       액"
@@ -359,7 +399,7 @@
         </TextView>
 
         <EditText
-            android:id="@+id/priceSum"
+            android:id="@+id/priceTotal"
             android:layout_width="127dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="25dp"
@@ -368,7 +408,124 @@
             android:text="0"
             android:gravity="center"
             android:textAlignment="center"
-            app:layout_constraintStart_toEndOf="@id/priceSumView">
+            app:layout_constraintStart_toEndOf="@id/priceTotalView">
+
+        </EditText>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/carNumberLine"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/priceTotalLine">
+
+        <TextView
+            android:id="@+id/carNumberView"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:text="차량 번호"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_marginLeft="41dp"
+            app:layout_constraintStart_toStartOf="parent">
+        </TextView>
+
+        <EditText
+            android:id="@+id/carNumber"
+            android:layout_width="127dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/ic_input_box"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text=""
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/carNumberView">
+
+        </EditText>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/carCategoryLine"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/carNumberLine">
+
+        <TextView
+            android:id="@+id/carCategoryView"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:text="차       종"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_marginLeft="41dp"
+            app:layout_constraintStart_toStartOf="parent">
+        </TextView>
+
+        <EditText
+            android:id="@+id/carCategory"
+            android:layout_width="127dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/ic_input_box"
+            android:inputType="text"
+            android:text=""
+            android:maxLines="1"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/carCategoryView">
+
+        </EditText>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/phoneNumberLine"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/carCategoryLine">
+
+        <TextView
+            android:id="@+id/phoneNumberView"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:text="전화 번호"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_marginLeft="41dp"
+            app:layout_constraintStart_toStartOf="parent">
+        </TextView>
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="127dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/ic_input_box"
+            android:inputType="phone"
+            android:text="010"
+            android:maxLength="13"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/phoneNumberView">
 
         </EditText>
 

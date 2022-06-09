@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,8 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.batman.DB.BatteryDB;
 import com.example.batman.DB.BatteryData;
 import com.example.batman.adapter.SellingPriceTableAdapter;
+import com.example.batman.selectMode.SelectModeActivity;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -26,6 +33,9 @@ public class SellingPriceTableFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView recyclerView;
+    private ArrayList<BatteryData> batteryList;
 
     public SellingPriceTableFragment() {
         // Required empty public constructor
@@ -54,12 +64,9 @@ public class SellingPriceTableFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_selling_price_table, container, false);
 
-        ArrayList<BatteryData> batteryList = new ArrayList<>();
+        batteryList = new ArrayList<>();
 
-        for(int i=0;i<30;i++)
-            batteryList.add(new BatteryData("batName",50000,100000*i,"batID"+i,10));
-
-        RecyclerView recyclerView = v.findViewById(R.id.rv_list);
+        recyclerView = v.findViewById(R.id.rv_list);
         SellingPriceTableAdapter sellingPriceTableAdapter = new SellingPriceTableAdapter(batteryList, 0);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(sellingPriceTableAdapter);
@@ -96,10 +103,55 @@ public class SellingPriceTableFragment extends Fragment {
 
         v.findViewById(R.id.add_button).setOnClickListener(view -> {
             Log.i("onclick(): ","add");
-            startActivity(AddTransactionActivity.class);
+            Intent intent = getActivity().getIntent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("batteryList", batteryList);
+            intent.putExtra("isStock", false);
+            intent.setClass(getActivity(), AddTransactionActivity.class);
+            startActivity(intent);
         });
 
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.v("onstart : ","start");
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Stock").orderBy("batName").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.w("snapshot error:", error.getMessage());
+                    return;
+                }
+//                value.forEach(snapshot -> {
+//                    if(!batteryList.contains((BatteryData)snapshot.toObject(BatteryDB.class)))
+//                        batteryList.add((BatteryData)snapshot.toObject(BatteryDB.class));
+//                });
+//                recyclerView.getAdapter().notifyDataSetChanged();
+                value.getDocumentChanges().forEach(documentChange -> {
+                   switch (documentChange.getType()) {
+                       case ADDED:
+                           if(!batteryList.contains((BatteryData)documentChange.getDocument().toObject(BatteryDB.class)))
+                                batteryList.add((BatteryData) documentChange.getDocument().toObject(BatteryDB.class));
+                           break;
+                       case MODIFIED:
+                           batteryList.set(documentChange.getOldIndex(),  (BatteryData)documentChange.getDocument().toObject(BatteryDB.class));
+                           break;
+                       case REMOVED:
+                           batteryList.remove((BatteryData) documentChange.getDocument().toObject(BatteryDB.class));
+                           break;
+                   }
+                   documentChange.getDocument().toObject(BatteryDB.class);
+                   recyclerView.getAdapter().notifyDataSetChanged();
+                });
+
+
+            }
+        });
     }
 
     private void startActivity(Class c) {

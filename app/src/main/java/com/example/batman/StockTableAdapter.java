@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.DB.BatteryData;
-import com.example.batman.DB.StockData;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
