@@ -10,20 +10,54 @@ import android.util.Log;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManageMainActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     StockTableFragment stockTableFragment;
+    TransactionTableFragment transactionTableFragment;
+    ArrayList<Fragment> fragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_main);
+        fragmentList = new ArrayList<>();
         tabLayout = findViewById(R.id.bottomNaviManage);
-        stockTableFragment = new StockTableFragment();
-        addFragment(stockTableFragment);
+        fragmentList.add(new StockTableFragment());
+        fragmentList.add(new TransactionTableFragment());
+
+//        stockTableFragment = new StockTableFragment();
+//        transactionTableFragment = new TransactionTableFragment();
+        for (Fragment fragment: fragmentList) {
+            addFragment(fragment);
+        }
+        replaceFragment(fragmentList.get(0));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                replaceFragment(fragmentList.get(tab.getPosition()));
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
     }
 

@@ -5,13 +5,19 @@
       <map>
         <entry key="..\:/Users/KangChanghan/.gradle/caches/transforms-2/files-2.1/a0533202ced304b7f05544fe0c07e095/appcompat-1.3.1/res/layout/support_simple_spinner_dropdown_item.xml" value="0.2692502532928065" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3175" />
+        <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/btn_color_selector.xml" value="0.3355" />
+        <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/btn_selector.xml" value="0.3395" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.3845" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_baseline_chevron_left_24.xml" value="0.3845" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_baseline_indeterminate_check_box_24.xml" value="0.3845" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_baseline_point_of_sale_24.xml" value="0.3175" />
+        <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_btn_.xml" value="0.3355" />
+        <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_btn__.xml" value="0.3355" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_input_box.xml" value="0.3845" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3175" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_rect_input_box.xml" value="0.3175" />
+        <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_toggle_btn_off.xml" value="0.3355" />
+        <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/ic_toggle_btn_on.xml" value="0.3395" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/rect_managemode.xml" value="0.3175" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/drawable/rect_sellmode.xml" value="0.3175" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/layout/activity_add_new_transaction.xml" value="0.75" />
@@ -23,6 +29,7 @@
         <entry key="..\:/git_repo/BatMan/app/src/main/res/layout/activity_selling_price_modify.xml" value="0.31302083333333336" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/layout/fragment_selling_price_table.xml" value="0.327445652173913" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/layout/fragment_stock_table.xml" value="0.327445652173913" />
+        <entry key="..\:/git_repo/BatMan/app/src/main/res/layout/fragment_transaction_table.xml" value="0.33" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/layout/item_selling_table.xml" value="0.31302083333333336" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/layout/item_stock_table.xml" value="0.31302083333333336" />
         <entry key="..\:/git_repo/BatMan/app/src/main/res/menu/menu_manage.xml" value="0.3145833333333333" />
