@@ -16,8 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.batman.AddTransactionActivity;
-import com.example.batman.DB.BatteryDB;
-import com.example.batman.DB.BatteryData;
+import com.example.batman.db.BatteryDB;
+import com.example.batman.db.BatteryData;
 import com.example.batman.R;
 import com.example.batman.selectmode.SelectModeActivity;
 import com.google.firebase.firestore.EventListener;

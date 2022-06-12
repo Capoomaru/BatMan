@@ -15,9 +15,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.batman.DB.BatteryData;
-import com.example.batman.DB.TransactionPurchaseData;
-import com.example.batman.DB.TransactionSellData;
+import com.example.batman.db.BatteryData;
+import com.example.batman.db.TransactionStockData;
+import com.example.batman.db.TransactionSellData;
 import com.example.batman.utils.NumTextWatcher;
 import com.example.batman.utils.TransactionNumTextWatcher;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -166,7 +166,7 @@ public class AddTransactionActivity extends AppCompatActivity {
 
 
             if (isStock) {
-                TransactionPurchaseData newTransaction = new TransactionPurchaseData(batName, isCard, isStock, date.getTime(), price, count, priceTotal);
+                TransactionStockData newTransaction = new TransactionStockData(batName, isCard, isStock, date.getTime(), price, count, priceTotal);
 
                 db.collection("Transaction").document(newTransaction.getDate().toString()).set(newTransaction);
                 db.collection("Stock").document(batName).get().addOnCompleteListener(task -> {

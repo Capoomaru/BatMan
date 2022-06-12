@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.example.batman.DB.BatteryData;
+import com.example.batman.db.BatteryData;
 import com.example.batman.utils.NumTextWatcher;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -34,7 +34,7 @@ public class AddStockActivity extends AppCompatActivity {
 
             BatteryData newStock = new BatteryData(batName, purchasePrice, sellingPrice, 0);
             db.collection("Stock").document(batName).set(newStock);
-            db.collection("Stock").document(batName).update("LastUpdate", new Date(System.currentTimeMillis()));
+            db.collection("Stock").document(batName).update("lastUpdate", new Date(System.currentTimeMillis()));
 
             finish();
 

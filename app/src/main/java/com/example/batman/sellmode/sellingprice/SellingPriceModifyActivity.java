@@ -11,7 +11,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.example.batman.AddStockActivity;
-import com.example.batman.DB.BatteryData;
+import com.example.batman.db.BatteryData;
 import com.example.batman.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -49,7 +49,7 @@ public class SellingPriceModifyActivity extends AppCompatActivity {
                                 db.collection("Stock").document(batteryList.get(i).getBatName())
                                         .set(batteryList.get(i));
                                 db.collection("Stock").document(batteryList.get(i).getBatName())
-                                        .update("LastUpdate", new Date(System.currentTimeMillis()));
+                                        .update("lastUpdate", new Date(System.currentTimeMillis()));
                             }
                         }
                         finish();

@@ -1,13 +1,9 @@
-package com.example.batman.DB;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.example.batman.db;
 
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class BatteryData implements Serializable, Cloneable {
     private String batName;

@@ -1,8 +1,6 @@
-package com.example.batman.DB;
+package com.example.batman.db;
 
-import java.util.Date;
-
-public class CustomerDB {
+public class Customer {
     private String carNumber;      //차량번호
     private String carCategory;    //차종
     private String phoneNumber;    //전화번호

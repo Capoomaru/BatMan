@@ -1,10 +1,10 @@
-package com.example.batman.DB;
+package com.example.batman.db;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TransactionPurchaseData extends TransactionData implements Serializable, Cloneable {
+public class TransactionStockData extends TransactionData implements Serializable, Cloneable {
     private int purchasePrice;
 
     public int getPrice() {
@@ -23,9 +23,9 @@ public class TransactionPurchaseData extends TransactionData implements Serializ
         this.purchasePrice = purchasePrice;
     }
 
-    public TransactionPurchaseData() {super();}
+    public TransactionStockData() {super();}
 
-    public TransactionPurchaseData(String batName, boolean isCard, boolean isStock, Date date, int purchasePrice, int count, int totalPrice) {
+    public TransactionStockData(String batName, boolean isCard, boolean isStock, Date date, int purchasePrice, int count, int totalPrice) {
         super(batName, isCard, isStock, date, count, totalPrice);
         this.purchasePrice = purchasePrice;
     }
@@ -36,7 +36,7 @@ public class TransactionPurchaseData extends TransactionData implements Serializ
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        TransactionPurchaseData that = (TransactionPurchaseData) o;
+        TransactionStockData that = (TransactionStockData) o;
 
         return purchasePrice == that.purchasePrice;
     }
@@ -48,11 +48,11 @@ public class TransactionPurchaseData extends TransactionData implements Serializ
         return result;
     }
 
-    public static ArrayList<TransactionPurchaseData> cloneList(ArrayList<TransactionPurchaseData> sourceList) {
-        ArrayList<TransactionPurchaseData> destList = new ArrayList<>();
-        for(TransactionPurchaseData source : sourceList) {
+    public static ArrayList<TransactionStockData> cloneList(ArrayList<TransactionStockData> sourceList) {
+        ArrayList<TransactionStockData> destList = new ArrayList<>();
+        for(TransactionStockData source : sourceList) {
             try {
-                destList.add((TransactionPurchaseData) source.clone());
+                destList.add((TransactionStockData) source.clone());
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }

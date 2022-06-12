@@ -1,4 +1,4 @@
-package com.example.batman.DB;
+package com.example.batman.db;
 
 import java.io.Serializable;
 import java.util.Date;

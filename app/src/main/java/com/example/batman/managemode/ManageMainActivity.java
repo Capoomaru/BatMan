@@ -32,29 +32,29 @@ public class ManageMainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
-                    case 0:
-                        if (stockTableFragment == null) {
-                            stockTableFragment = new StockTableFragment();
-                            addFragment(stockTableFragment);
+                    case 0: //재고 현황 탭
+                        if (stockTableFragment == null) {                   //처음 탭 선택시
+                            stockTableFragment = new StockTableFragment();  //객체 생성후
+                            addFragment(stockTableFragment);                //화면 전환
                         }
-                        else
-                            showFragment(stockTableFragment);
+                        else                                                //이미 존재하는 경우
+                            showFragment(stockTableFragment);               //기존 객체로 화면 전환
                         break;
-                    case 1:
-                        if (transactionTableFragment == null) {
-                            transactionTableFragment = new TransactionTableFragment();
-                            addFragment(transactionTableFragment);
+                    case 1: //거래 기록 탭
+                        if (transactionTableFragment == null) {             //처음 탭 선택시
+                            transactionTableFragment = new TransactionTableFragment(); //객체 생성후
+                            addFragment(transactionTableFragment);          //화면 전환
                         }
-                        else
-                            showFragment(transactionTableFragment);
+                        else                                                //이미 존재하는 경우
+                            showFragment(transactionTableFragment);         //기존 객체로 화면 전환
                         break;
-                    case 2:
-//                        if (fragment2 == null) {
-//                            fragment2 = new StockTableFragment();
-//                            addFragment(fragment2);
+                    case 2: //통계 탭 -> 미구현 //TODO : StaticsFragment 구현 필요
+//                        if (staticsFragment == null) {
+//                            staticsFragment = new StaticsFragment();
+//                            addFragment(staticsFragment);
 //                        }
 //                        else
-//                            showFragment(fragment2);
+//                            showFragment(staticsFragment);
                         break;
                 }
             }
@@ -70,13 +70,6 @@ public class ManageMainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void replaceFragment(Fragment targetFragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame, targetFragment);
-        fragmentTransaction.commit();
     }
 
     private void addFragment(Fragment targetFragment) {
@@ -106,4 +99,5 @@ public class ManageMainActivity extends AppCompatActivity {
         fragmentTransaction.show(targetFragment);
         fragmentTransaction.commit();
     }
+
 }

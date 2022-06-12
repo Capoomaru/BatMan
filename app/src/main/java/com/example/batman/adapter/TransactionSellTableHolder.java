@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.DB.TransactionSellData;
+import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
 import com.example.batman.utils.ICallBackTextWatcher;
 import com.example.batman.utils.MinusClickListener;

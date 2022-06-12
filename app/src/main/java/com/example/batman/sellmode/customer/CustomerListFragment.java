@@ -19,7 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-import com.example.batman.DB.TransactionSellData;
+import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
 import com.example.batman.utils.DateUtils;
 import com.example.batman.adapter.TransactionSellTableAdapter;

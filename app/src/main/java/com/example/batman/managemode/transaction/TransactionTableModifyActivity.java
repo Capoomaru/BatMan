@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.DB.TransactionPurchaseData;
-import com.example.batman.DB.TransactionSellData;
+import com.example.batman.db.TransactionStockData;
+import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
 import com.example.batman.adapter.TransactionPurchaseTableAdapter;
 import com.example.batman.adapter.TransactionSellTableAdapter;
@@ -33,7 +33,7 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
         boolean isSell = intent.getBooleanExtra("isSell", false);
 
         ArrayList<TransactionSellData> transactionSellDataList = isSell ? TransactionSellData.cloneList((ArrayList<TransactionSellData>) intent.getSerializableExtra("transactionSellList")) : null;
-        ArrayList<TransactionPurchaseData> transactionPurchaseDataList = isSell ? null : TransactionPurchaseData.cloneList((ArrayList<TransactionPurchaseData>) intent.getSerializableExtra("transactionPurchaseList"));
+        ArrayList<TransactionStockData> transactionStockDataList = isSell ? null : TransactionStockData.cloneList((ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionPurchaseList"));
 
         RecyclerView recyclerView = findViewById(R.id.rv_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
@@ -45,7 +45,7 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
             findViewById(R.id.topPanel2).setVisibility(View.INVISIBLE);
             ((TextView) findViewById(R.id.is_card)).setText("매입\n수량");
 
-            TransactionPurchaseTableAdapter purchaseAdapter = new TransactionPurchaseTableAdapter(transactionPurchaseDataList, true);
+            TransactionPurchaseTableAdapter purchaseAdapter = new TransactionPurchaseTableAdapter(transactionStockDataList, true);
             recyclerView.setAdapter(purchaseAdapter);
         }
 
@@ -59,7 +59,7 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
                     .setMessage("입력된 수정을 반영하시겠습니까?")
                     .setPositiveButton("네", (dialog, index) -> {
                         ArrayList<TransactionSellData> originSellList;
-                        ArrayList<TransactionPurchaseData> originPurchaseList;
+                        ArrayList<TransactionStockData> originPurchaseList;
                         ArrayList<Integer> rmList;
                         if (isSell) {
                             originSellList = (ArrayList<TransactionSellData>) intent.getSerializableExtra("transactionSellList");
@@ -90,11 +90,11 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
                                 }
                             }
                         } else {
-                            originPurchaseList = (ArrayList<TransactionPurchaseData>) intent.getSerializableExtra("transactionPurchaseList");
+                            originPurchaseList = (ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionPurchaseList");
                             rmList = ((TransactionPurchaseTableAdapter) recyclerView.getAdapter()).getRmList();
 
                             rmList.forEach(i -> {
-                                TransactionPurchaseData data = originPurchaseList.get(i);
+                                TransactionStockData data = originPurchaseList.get(i);
                                 db.collection("Stock").document(data.getBatName()).get().addOnCompleteListener(task -> {
                                     if (task.isSuccessful()) {
                                         DocumentSnapshot document = task.getResult();
@@ -107,10 +107,10 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
                                 });
                             });
 
-                            for (int i = 0; i < transactionPurchaseDataList.size(); i++) {
-                                if (!transactionPurchaseDataList.get(i).equals(originPurchaseList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
-                                    db.collection("Transaction").document(transactionPurchaseDataList.get(i).getDate().toString())
-                                            .set(transactionPurchaseDataList.get(i));
+                            for (int i = 0; i < transactionStockDataList.size(); i++) {
+                                if (!transactionStockDataList.get(i).equals(originPurchaseList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
+                                    db.collection("Transaction").document(transactionStockDataList.get(i).getDate().toString())
+                                            .set(transactionStockDataList.get(i));
                                 }
                             }
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.DB.TransactionPurchaseData;
+import com.example.batman.db.TransactionStockData;
 import com.example.batman.R;
 import com.example.batman.utils.ICallBackTextWatcher;
 import com.example.batman.utils.MinusClickListener;
@@ -16,11 +16,11 @@ import com.example.batman.utils.MinusClickListener;
 import java.util.ArrayList;
 
 public class TransactionPurchaseTableAdapter extends RecyclerView.Adapter<TransactionPurchaseTableHolder> {
-    protected ArrayList<TransactionPurchaseData> list;
+    protected ArrayList<TransactionStockData> list;
     private boolean has_minus;
     private ArrayList<Integer> rmList;
 
-    public TransactionPurchaseTableAdapter(ArrayList<TransactionPurchaseData> list, boolean has_minus) {
+    public TransactionPurchaseTableAdapter(ArrayList<TransactionStockData> list, boolean has_minus) {
         this.list = list;
         this.has_minus=has_minus;
         this.rmList = new ArrayList<>();

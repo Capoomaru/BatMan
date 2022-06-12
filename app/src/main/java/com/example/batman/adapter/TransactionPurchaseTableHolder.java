@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.DB.TransactionPurchaseData;
+import com.example.batman.db.TransactionStockData;
 import com.example.batman.R;
 import com.example.batman.utils.ICallBackTextWatcher;
 import com.example.batman.utils.MinusClickListener;
@@ -57,7 +57,7 @@ public class TransactionPurchaseTableHolder extends RecyclerView.ViewHolder {
         minusButton.setOnClickListener(v -> {minusClickListener.onMinusCLick(itemView, getAdapterPosition());});
     }
 
-    void onBind(TransactionPurchaseData data) {
+    void onBind(TransactionStockData data) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd\nHH:mm:ss");
 
         dateView.setText(dateFormat.format(data.getDate()));

@@ -16,8 +16,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.example.batman.DB.TransactionPurchaseData;
-import com.example.batman.DB.TransactionSellData;
+import com.example.batman.db.TransactionStockData;
+import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
 import com.example.batman.adapter.TransactionPurchaseTableAdapter;
 import com.example.batman.adapter.TransactionSellTableAdapter;
@@ -37,7 +37,7 @@ public class TransactionTableFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ArrayList<TransactionSellData> transactionSellDataList;
-    private ArrayList<TransactionPurchaseData> transactionPurchaseDataList;
+    private ArrayList<TransactionStockData> transactionStockDataList;
     private TransactionSellTableAdapter sellTableAdapter;
     private TransactionPurchaseTableAdapter purchaseTableAdapter;
 
@@ -73,12 +73,12 @@ public class TransactionTableFragment extends Fragment {
         btnSell.setChecked(true);
 
         transactionSellDataList = new ArrayList<>();
-        transactionPurchaseDataList = new ArrayList<>();
+        transactionStockDataList = new ArrayList<>();
 
         recyclerView = v.findViewById(R.id.rv_list);
 
         sellTableAdapter = new TransactionSellTableAdapter(transactionSellDataList, false);
-        purchaseTableAdapter = new TransactionPurchaseTableAdapter(transactionPurchaseDataList, false);
+        purchaseTableAdapter = new TransactionPurchaseTableAdapter(transactionStockDataList, false);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(sellTableAdapter);
@@ -110,7 +110,7 @@ public class TransactionTableFragment extends Fragment {
 
                 }
                 else {
-                    intent.putExtra("transactionPurchaseList", transactionPurchaseDataList);
+                    intent.putExtra("transactionPurchaseList", transactionStockDataList);
                     intent.putExtra("isSell", false);
                 }
                 intent.setClass(getActivity(), TransactionTableModifyActivity.class);
@@ -177,14 +177,14 @@ public class TransactionTableFragment extends Fragment {
             value.getDocumentChanges().forEach(documentChange -> {
                 switch (documentChange.getType()) {
                     case ADDED:
-                        if(!transactionPurchaseDataList.contains(documentChange.getDocument().toObject(TransactionPurchaseData.class)))
-                            transactionPurchaseDataList.add(documentChange.getDocument().toObject(TransactionPurchaseData.class));
+                        if(!transactionStockDataList.contains(documentChange.getDocument().toObject(TransactionStockData.class)))
+                            transactionStockDataList.add(documentChange.getDocument().toObject(TransactionStockData.class));
                         break;
                     case MODIFIED:
-                        transactionPurchaseDataList.set(documentChange.getOldIndex(), documentChange.getDocument().toObject(TransactionPurchaseData.class));
+                        transactionStockDataList.set(documentChange.getOldIndex(), documentChange.getDocument().toObject(TransactionStockData.class));
                         break;
                     case REMOVED:
-                        transactionPurchaseDataList.remove(documentChange.getDocument().toObject(TransactionPurchaseData.class));
+                        transactionStockDataList.remove(documentChange.getDocument().toObject(TransactionStockData.class));
                         break;
                 }
                 //documentChange.getDocument().toObject(TransactionPurchaseData.class);
