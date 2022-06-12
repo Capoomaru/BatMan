@@ -1,11 +1,12 @@
-package com.example.batman.selectMode;
+package com.example.batman.selectmode;
 
 import android.view.View;
 
-import com.example.batman.ManageMainActivity;
+import com.example.batman.managemode.ManageMainActivity;
 import com.example.batman.R;
-import com.example.batman.SellMainActivity;
+import com.example.batman.sellmode.SellMainActivity;
 
+/* Controller */
 public class ModeClickListener implements View.OnClickListener {
     private SelectModeActivity activity;
 

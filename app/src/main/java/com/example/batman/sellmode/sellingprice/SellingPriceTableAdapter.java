@@ -1,25 +1,18 @@
-package com.example.batman.adapter;
+package com.example.batman.sellmode.sellingprice;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.DB.BatteryData;
 import com.example.batman.R;
-import com.example.batman.adapter.MinusClickListener;
-import com.google.firebase.firestore.FieldValue;
+import com.example.batman.utils.ICallBackTextWatcher;
+import com.example.batman.utils.MinusClickListener;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceTableHolder> {

@@ -1,4 +1,4 @@
-package com.example.batman;
+package com.example.batman.sellmode.sellingprice;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,10 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.batman.AddTransactionActivity;
 import com.example.batman.DB.BatteryDB;
 import com.example.batman.DB.BatteryData;
-import com.example.batman.adapter.SellingPriceTableAdapter;
-import com.example.batman.selectMode.SelectModeActivity;
+import com.example.batman.R;
+import com.example.batman.selectmode.SelectModeActivity;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;

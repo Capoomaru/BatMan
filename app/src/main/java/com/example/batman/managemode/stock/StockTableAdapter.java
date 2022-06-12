@@ -1,30 +1,30 @@
-package com.example.batman.adapter;
+package com.example.batman.managemode.stock;
 
 import android.content.Context;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.DB.BatteryData;
 import com.example.batman.R;
+import com.example.batman.utils.ICallBackTextWatcher;
+import com.example.batman.utils.MinusClickListener;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
-    private ArrayList<BatteryData> list;
+    protected ArrayList<BatteryData> list;
     private Context context;
     private boolean has_minus;
+    private ArrayList<Integer> rmList;
 
     public StockTableAdapter(ArrayList<BatteryData> list, boolean has_minus) {
         this.list = list;
         this.has_minus = has_minus;
+        this.rmList = new ArrayList<>();
     }
 
     @NonNull
@@ -55,10 +55,15 @@ public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
             else
                 list.get(position).setCount(Integer.parseInt(s.toString().replaceAll(",","")));
         };
+        MinusClickListener minusClickListener = (view1, position) -> {
+            rmList.add(position);
+            list.remove(position);
+            notifyItemRemoved(position);
+        };
 
         if(has_minus)
             view.findViewById(R.id.minus).setVisibility(View.VISIBLE);
-        return new StockTableHolder(view, nameWatcher, priceWatcher, countWatcher);
+        return new StockTableHolder(view, nameWatcher, priceWatcher, countWatcher, minusClickListener);
     }
 
     @Override
@@ -75,4 +80,6 @@ public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
     public int getItemCount() {
         return list.size();
     }
+
+    public ArrayList<Integer> getRmList() {return rmList;}
 }

@@ -1,10 +1,8 @@
-package com.example.batman;
+package com.example.batman.managemode.stock;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,8 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.batman.AddStockActivity;
 import com.example.batman.DB.BatteryData;
-import com.example.batman.adapter.StockTableAdapter;
+import com.example.batman.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -44,9 +43,15 @@ public class StockTableModifyActivity extends AppCompatActivity {
                     .setTitle("수정")
                     .setMessage("입력된 수정을 반영하시겠습니까?")
                     .setPositiveButton("네", (dialog, index) -> {
+                        ArrayList<Integer> rmList = sellingPriceTableAdapter.getRmList();
+
+                        rmList.forEach(i -> {
+                            db.collection("Stock").document(originList.get(i).getBatName()).delete(); //삭제 하고
+                            originList.remove(i);                                                                 //비교 대상과 인덱스 동기화화
+                       });
+
                         for(int i=0;i<batteryList.size();i++) {
-                            if(!batteryList.get(i).equals(originList.get(i))) {
-                                Log.i("modify : ", "not match" + i);
+                            if(!batteryList.get(i).equals(originList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
                                 db.collection("Stock").document(batteryList.get(i).getBatName())
                                         .set(batteryList.get(i));
                                 db.collection("Stock").document(batteryList.get(i).getBatName())

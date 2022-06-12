@@ -1,19 +1,18 @@
-package com.example.batman;
+package com.example.batman.sellmode.sellingprice;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
+import com.example.batman.AddStockActivity;
 import com.example.batman.DB.BatteryData;
-import com.example.batman.adapter.SellingPriceTableAdapter;
+import com.example.batman.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;

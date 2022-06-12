@@ -1,4 +1,4 @@
-package com.example.batman;
+package com.example.batman.managemode;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -6,40 +6,57 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
 
+import com.example.batman.R;
+import com.example.batman.managemode.stock.StockTableFragment;
+import com.example.batman.managemode.transaction.TransactionTableFragment;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ManageMainActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
-    StockTableFragment stockTableFragment;
-    TransactionTableFragment transactionTableFragment;
-    ArrayList<Fragment> fragmentList;
+    private TabLayout tabLayout;
+    private StockTableFragment stockTableFragment;
+    private TransactionTableFragment transactionTableFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_main);
-        fragmentList = new ArrayList<>();
         tabLayout = findViewById(R.id.bottomNaviManage);
-        fragmentList.add(new StockTableFragment());
-        fragmentList.add(new TransactionTableFragment());
-
-//        stockTableFragment = new StockTableFragment();
-//        transactionTableFragment = new TransactionTableFragment();
-        for (Fragment fragment: fragmentList) {
-            addFragment(fragment);
-        }
-        replaceFragment(fragmentList.get(0));
+        stockTableFragment = new StockTableFragment();
+        addFragment(stockTableFragment);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                replaceFragment(fragmentList.get(tab.getPosition()));
+                switch (tab.getPosition()) {
+                    case 0:
+                        if (stockTableFragment == null) {
+                            stockTableFragment = new StockTableFragment();
+                            addFragment(stockTableFragment);
+                        }
+                        else
+                            showFragment(stockTableFragment);
+                        break;
+                    case 1:
+                        if (transactionTableFragment == null) {
+                            transactionTableFragment = new TransactionTableFragment();
+                            addFragment(transactionTableFragment);
+                        }
+                        else
+                            showFragment(transactionTableFragment);
+                        break;
+                    case 2:
+//                        if (fragment2 == null) {
+//                            fragment2 = new StockTableFragment();
+//                            addFragment(fragment2);
+//                        }
+//                        else
+//                            showFragment(fragment2);
+                        break;
+                }
             }
 
             @Override
@@ -52,12 +69,6 @@ public class ManageMainActivity extends AppCompatActivity {
 
             }
         });
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
     }
 

@@ -6,28 +6,26 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.batman.DB.BatteryData;
-import com.example.batman.DB.TransactionData;
+import com.example.batman.DB.TransactionPurchaseData;
 import com.example.batman.DB.TransactionSellData;
-import com.example.batman.DB.TransactionStockData;
-import com.example.batman.adapter.NumTextWatcher;
-import com.example.batman.adapter.TransactionNumTextWatcher;
+import com.example.batman.utils.NumTextWatcher;
+import com.example.batman.utils.TransactionNumTextWatcher;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,7 +64,7 @@ public class AddTransactionActivity extends AppCompatActivity {
                 priceText.setText(""+(isStockRadio.getCheckedRadioButtonId() == R.id.radio_stock ?
                         batteryList.get(position).getPurchasePrice() :
                         batteryList.get(position).getSellingPrice()));
-                if(batteryList.get(position).getCount() <= 0) {
+                if(((RadioButton)findViewById(R.id.radio_sell)).isChecked() && batteryList.get(position).getCount() <= 0) {
                     findViewById(R.id.complete).setClickable(false);
                     ((TextView)findViewById(R.id.complete)).setTextColor(Color.GRAY);
                 }
@@ -168,9 +166,9 @@ public class AddTransactionActivity extends AppCompatActivity {
 
 
             if (isStock) {
-                TransactionStockData newTransaction = new TransactionStockData(batName, isCard, isStock, date.getTime(), price, count, priceTotal);
+                TransactionPurchaseData newTransaction = new TransactionPurchaseData(batName, isCard, isStock, date.getTime(), price, count, priceTotal);
 
-                db.collection("Transaction").document().set(newTransaction);
+                db.collection("Transaction").document(newTransaction.getDate().toString()).set(newTransaction);
                 db.collection("Stock").document(batName).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
@@ -189,14 +187,14 @@ public class AddTransactionActivity extends AppCompatActivity {
                 customerInfo.put("phoneNumber", phoneNumber);
                 TransactionSellData newTransaction = new TransactionSellData(batName, isCard, isStock, date.getTime(), price, count, priceTotal, carNumber, carCategory, phoneNumber);
 
-                db.collection("Transaction").document().set(newTransaction);
+                db.collection("Transaction").document(newTransaction.getDate().toString()).set(newTransaction);
                 db.collection("Stock").document(batName).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         int prev = Integer.parseInt(document.get("count").toString());
                         db.collection("Stock").document(batName).update("count",prev - newTransaction.getCount());
                         db.collection("Customer").document(carNumber+phoneNumber).set(customerInfo);
-                        db.collection("Customer").document(carNumber+phoneNumber).collection("TransactionList").document(today.getTime().toString()).set(newTransaction);
+                        db.collection("Customer").document(carNumber+phoneNumber).collection("TransactionList").document(newTransaction.getDate().toString()).set(newTransaction);
                     }
                 });
 

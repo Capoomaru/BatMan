@@ -1,4 +1,4 @@
-package com.example.batman.adapter;
+package com.example.batman.managemode.stock;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,23 +11,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.DB.BatteryData;
 import com.example.batman.R;
+import com.example.batman.utils.ICallBackTextWatcher;
+import com.example.batman.utils.MinusClickListener;
+import com.example.batman.utils.NumTextWatcher;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class StockTableHolder extends RecyclerView.ViewHolder {
-    EditText batNameView;
-    EditText purchasePriceView;
-    EditText countView;
-    ImageView minusButton;
+    protected EditText batNameView;
+    protected EditText purchasePriceView;
+    protected EditText countView;
+    protected ImageView minusButton;
+    protected ArrayList<Integer> rmList;
 
-    public StockTableHolder(@NonNull View itemView ,ICallBackTextWatcher nameWatcher, ICallBackTextWatcher priceWatcher, ICallBackTextWatcher countWatcher) {
+    public StockTableHolder(@NonNull View itemView , ICallBackTextWatcher nameWatcher, ICallBackTextWatcher priceWatcher, ICallBackTextWatcher countWatcher, MinusClickListener minusClickListener) {
         super(itemView);
         batNameView = itemView.findViewById(R.id.batName);
         purchasePriceView = itemView.findViewById(R.id.purchase_price);
         countView = itemView.findViewById(R.id.count);
         minusButton = itemView.findViewById(R.id.minus);
-        minusButton.setOnClickListener(v -> {
 
+        rmList = new ArrayList<>();
+        minusButton.setOnClickListener(v -> {
+            rmList.add(getAdapterPosition());
         });
 
         batNameView.addTextChangedListener(new TextWatcher(){
@@ -58,6 +65,7 @@ public class StockTableHolder extends RecyclerView.ViewHolder {
                 countWatcher.onTextChanged(getAdapterPosition(), s, start, before, count);
             }
         });
+        minusButton.setOnClickListener(v -> minusClickListener.onMinusCLick(v, getAdapterPosition()));
     }
 
     void onBind(BatteryData batteryData) {
@@ -73,4 +81,6 @@ public class StockTableHolder extends RecyclerView.ViewHolder {
             countView.setEnabled(true);
         }
     }
+
+    ArrayList<Integer> getRmList() { return rmList;}
 }

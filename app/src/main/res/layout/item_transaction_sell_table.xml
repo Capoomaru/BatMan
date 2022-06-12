@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginLeft="29dp"
+    android:layout_marginBottom="15dp"
+    android:orientation="horizontal"
+    android:weightSum="1.09">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/topPanel"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            app:layout_constraintTop_toBottomOf="@id/buttonPanel">
+
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:background="@drawable/rect_sellmode"
+                android:fontFamily="@font/lotte_mart_dream_bold"
+                android:gravity="center"
+                android:text="날짜"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:enabled="false">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/batName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:background="@drawable/rect_sellmode"
+                android:fontFamily="@font/lotte_mart_dream_bold"
+                android:gravity="center"
+                android:text="배터리명"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:enabled="false">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/sellingPrice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.28"
+                android:background="@drawable/rect_managemode"
+                android:fontFamily="@font/lotte_mart_dream_bold"
+                android:gravity="center"
+                android:text="판매가"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:enabled="false">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/isCard"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.17"
+                android:background="@drawable/rect_sellmode"
+                android:fontFamily="@font/lotte_mart_dream_bold"
+                android:gravity="center"
+                android:text="결제\n수단"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:enabled="false">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/topPanel2"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            app:layout_constraintTop_toBottomOf="@id/topPanel">
+
+            <EditText
+                android:id="@+id/carNumber"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:background="@drawable/rect_sellmode"
+                android:fontFamily="@font/lotte_mart_dream_bold"
+                android:gravity="center"
+                android:text="차량번호"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:enabled="false">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/carCategory"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:background="@drawable/rect_sellmode"
+                android:fontFamily="@font/lotte_mart_dream_bold"
+                android:gravity="center"
+                android:text="차종"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:enabled="false">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/phoneNumber"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.45"
+                android:background="@drawable/rect_managemode"
+                android:fontFamily="@font/lotte_mart_dream_bold"
+                android:gravity="center"
+                android:text="전화번호"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:enabled="false">
+
+            </EditText>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/minus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.09"
+        android:background="@drawable/ic_baseline_indeterminate_check_box_24"
+        android:visibility="invisible">
+
+    </ImageButton>
+
+
+</LinearLayout>

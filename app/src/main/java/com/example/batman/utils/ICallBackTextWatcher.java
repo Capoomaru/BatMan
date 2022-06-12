@@ -1,4 +1,4 @@
-package com.example.batman.adapter;
+package com.example.batman.utils;
 
 import android.text.Editable;
 

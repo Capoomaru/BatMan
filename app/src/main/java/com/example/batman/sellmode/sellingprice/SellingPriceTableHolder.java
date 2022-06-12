@@ -1,4 +1,4 @@
-package com.example.batman.adapter;
+package com.example.batman.sellmode.sellingprice;
 
 import android.text.Editable;
 import android.text.TextUtils;
@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.DB.BatteryData;
 import com.example.batman.R;
+import com.example.batman.utils.ICallBackTextWatcher;
+import com.example.batman.utils.MinusClickListener;
 
 import java.text.DecimalFormat;
 

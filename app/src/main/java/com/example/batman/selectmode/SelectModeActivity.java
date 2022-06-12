@@ -1,4 +1,4 @@
-package com.example.batman.selectMode;
+package com.example.batman.selectmode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,9 @@ import com.example.batman.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
+/* View */
 public class SelectModeActivity extends AppCompatActivity {
-    ModeClickListener modeClickListener;
+    private ModeClickListener modeClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

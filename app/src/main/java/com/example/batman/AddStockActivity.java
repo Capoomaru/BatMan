@@ -4,15 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.batman.DB.BatteryData;
-import com.example.batman.adapter.NumTextWatcher;
+import com.example.batman.utils.NumTextWatcher;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class AddStockActivity extends AppCompatActivity {
 

@@ -15,17 +15,18 @@
             android:name=".AddStockActivity"
             android:exported="false" />
         <activity android:name=".AddTransactionActivity" />
-        <activity android:name=".SellingPriceModifyActivity" />
-        <activity android:name=".SellMainActivity" />
-        <activity android:name=".StockTableModifyActivity" />
-        <activity android:name=".selectMode.SelectModeActivity">
+        <activity android:name=".sellmode.sellingprice.SellingPriceModifyActivity" />
+        <activity android:name=".sellmode.SellMainActivity" />
+        <activity android:name=".managemode.stock.StockTableModifyActivity" />
+        <activity android:name=".managemode.transaction.TransactionTableModifyActivity" />
+        <activity android:name=".selectmode.SelectModeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ManageMainActivity" />
+        <activity android:name=".managemode.ManageMainActivity" />
     </application>
 
 </manifest>
