@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.db.BatteryData;
 import com.example.batman.R;
-import com.example.batman.utils.ICallBackTextWatcher;
-import com.example.batman.utils.MinusClickListener;
-import com.example.batman.utils.NumTextWatcher;
+import com.example.batman.share.utils.ICallBackTextWatcher;
+import com.example.batman.share.utils.MinusClickListener;
+import com.example.batman.share.utils.NumTextWatcher;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

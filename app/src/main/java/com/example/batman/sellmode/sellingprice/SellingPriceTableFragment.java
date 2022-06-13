@@ -15,7 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.batman.AddTransactionActivity;
+import com.example.batman.share.AddTransactionActivity;
 import com.example.batman.db.BatteryDB;
 import com.example.batman.db.BatteryData;
 import com.example.batman.R;
@@ -78,7 +78,7 @@ public class SellingPriceTableFragment extends Fragment {
                 Intent intent = getActivity().getIntent();
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("batteryList", batteryList);
-                intent.setClass(getActivity(), SellingPriceModifyActivity.class);
+                intent.setClass(getActivity(), SellingPriceTableModifyActivity.class);
                 startActivity(intent);
             }
         });

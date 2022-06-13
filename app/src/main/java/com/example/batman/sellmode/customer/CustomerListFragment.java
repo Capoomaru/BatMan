@@ -21,8 +21,8 @@ import android.widget.ToggleButton;
 
 import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
-import com.example.batman.utils.DateUtils;
-import com.example.batman.adapter.TransactionSellTableAdapter;
+import com.example.batman.share.utils.DateUtils;
+import com.example.batman.share.TransactionSellTableAdapter;
 import com.example.batman.selectmode.SelectModeActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;

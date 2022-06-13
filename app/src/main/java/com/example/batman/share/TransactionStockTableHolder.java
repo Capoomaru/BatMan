@@ -1,4 +1,4 @@
-package com.example.batman.adapter;
+package com.example.batman.share;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,18 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.db.TransactionStockData;
 import com.example.batman.R;
-import com.example.batman.utils.ICallBackTextWatcher;
-import com.example.batman.utils.MinusClickListener;
-import com.example.batman.utils.NumTextWatcher;
+import com.example.batman.share.utils.ICallBackTextWatcher;
+import com.example.batman.share.utils.MinusClickListener;
+import com.example.batman.share.utils.NumTextWatcher;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class TransactionPurchaseTableHolder extends RecyclerView.ViewHolder {
+public class TransactionStockTableHolder extends RecyclerView.ViewHolder {
     EditText dateView, batNameView, purchasePriceView, countView;
     ImageView minusButton;
 
-    public TransactionPurchaseTableHolder(@NonNull View itemView, ArrayList<ICallBackTextWatcher> callbackWatcherList, MinusClickListener minusClickListener) {
+    public TransactionStockTableHolder(@NonNull View itemView, ArrayList<ICallBackTextWatcher> callbackWatcherList, MinusClickListener minusClickListener) {
         super(itemView);
         dateView = itemView.findViewById(R.id.date);
         batNameView = itemView.findViewById(R.id.batName);

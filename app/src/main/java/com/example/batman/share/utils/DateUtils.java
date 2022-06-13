@@ -1,4 +1,4 @@
-package com.example.batman.utils;
+package com.example.batman.share.utils;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -65,4 +65,5 @@ public class DateUtils {
     public Date getYearEnd() {
         return yearEnd;
     }
+
 }

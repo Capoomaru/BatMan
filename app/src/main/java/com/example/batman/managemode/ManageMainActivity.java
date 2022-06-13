@@ -49,12 +49,12 @@ public class ManageMainActivity extends AppCompatActivity {
                             showFragment(transactionTableFragment);         //기존 객체로 화면 전환
                         break;
                     case 2: //통계 탭 -> 미구현 //TODO : StaticsFragment 구현 필요
-//                        if (staticsFragment == null) {
-//                            staticsFragment = new StaticsFragment();
-//                            addFragment(staticsFragment);
+//                        if (statisticsFragment == null) {
+//                            staticsFragment = new StatisticsFragment();
+//                            addFragment(statisticsFragment);
 //                        }
 //                        else
-//                            showFragment(staticsFragment);
+//                            showFragment(statisticsFragment);
                         break;
                 }
             }

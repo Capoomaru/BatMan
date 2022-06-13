@@ -1,4 +1,4 @@
-package com.example.batman.adapter;
+package com.example.batman.share;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
-import com.example.batman.utils.ICallBackTextWatcher;
-import com.example.batman.utils.MinusClickListener;
+import com.example.batman.share.utils.ICallBackTextWatcher;
+import com.example.batman.share.utils.MinusClickListener;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class TransactionSellTableAdapter extends RecyclerView.Adapter<Transactio
 
     public TransactionSellTableAdapter(ArrayList<TransactionSellData> list, boolean has_minus) {
         this.list = list;
-        this.has_minus=has_minus;
+        this.has_minus = has_minus;
         this.rmList = new ArrayList<>();
     }
 
@@ -36,10 +36,10 @@ public class TransactionSellTableAdapter extends RecyclerView.Adapter<Transactio
         ArrayList<ICallBackTextWatcher> callbackWatcherList = new ArrayList<>();
         callbackWatcherList.add((position, s, start, before, count) -> list.get(position).setBatName(s.toString()));
         callbackWatcherList.add((position, s, start, before, count) -> {
-            if(s.toString().equals(""))
+            if (s.toString().equals(""))
                 list.get(position).setSellPrice(0);
             else
-                list.get(position).setSellPrice(Integer.parseInt(s.toString().replaceAll(",","")));
+                list.get(position).setSellPrice(Integer.parseInt(s.toString().replaceAll(",", "")));
         });
         callbackWatcherList.add((position, s, start, before, count) -> list.get(position).setCard(s.toString().equals("카드")));
         callbackWatcherList.add((position, s, start, before, count) -> list.get(position).setCarNumber(s.toString()));
@@ -70,6 +70,7 @@ public class TransactionSellTableAdapter extends RecyclerView.Adapter<Transactio
         return list.size();
     }
 
-    public void setList(ArrayList<TransactionSellData> list) { this.list = list; }
-    public ArrayList<Integer> getRmList() { return rmList; }
+    public ArrayList<Integer> getRmList() {
+        return rmList;
+    }
 }

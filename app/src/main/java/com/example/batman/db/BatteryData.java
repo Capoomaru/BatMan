@@ -44,7 +44,7 @@ public class BatteryData implements Serializable, Cloneable {
     }
 
     public BatteryData() {
-        this("",0,0,0);
+        this("", 0, 0, 0);
     }
 
     public BatteryData(String batName, int purchasePrice, int sellingPrice, int count) {
@@ -57,16 +57,6 @@ public class BatteryData implements Serializable, Cloneable {
     @Override
     public String toString() {
         return batName;
-    }
-
-    public static ArrayList<String> toNameArray(ArrayList<BatteryData> arrayList) {
-        ArrayList<String> nameList = new ArrayList<>(arrayList.size());
-
-        for (BatteryData batteryData : arrayList) {
-            nameList.add(batteryData.getBatName());
-        }
-
-        return nameList;
     }
 
     @Override
@@ -99,7 +89,7 @@ public class BatteryData implements Serializable, Cloneable {
 
     public static ArrayList<BatteryData> cloneList(ArrayList<BatteryData> sourceList) {
         ArrayList<BatteryData> destList = new ArrayList<>();
-        for(BatteryData source : sourceList) {
+        for (BatteryData source : sourceList) {
             try {
                 destList.add(source.clone());
             } catch (CloneNotSupportedException e) {

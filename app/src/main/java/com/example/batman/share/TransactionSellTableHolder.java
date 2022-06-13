@@ -1,4 +1,4 @@
-package com.example.batman.adapter;
+package com.example.batman.share;
 
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
-import com.example.batman.utils.ICallBackTextWatcher;
-import com.example.batman.utils.MinusClickListener;
-import com.example.batman.utils.NumTextWatcher;
+import com.example.batman.share.utils.ICallBackTextWatcher;
+import com.example.batman.share.utils.MinusClickListener;
+import com.example.batman.share.utils.NumTextWatcher;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

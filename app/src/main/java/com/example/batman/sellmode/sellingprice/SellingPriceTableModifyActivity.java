@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.example.batman.AddStockActivity;
+import com.example.batman.share.AddStockActivity;
 import com.example.batman.db.BatteryData;
 import com.example.batman.R;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SellingPriceModifyActivity extends AppCompatActivity {
+public class SellingPriceTableModifyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class SellingPriceModifyActivity extends AppCompatActivity {
             ArrayList<BatteryData> originList = (ArrayList<BatteryData>) intent.getSerializableExtra("batteryList");
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            AlertDialog.Builder msgBuilder = new AlertDialog.Builder(SellingPriceModifyActivity.this)
+            AlertDialog.Builder msgBuilder = new AlertDialog.Builder(SellingPriceTableModifyActivity.this)
                     .setTitle("수정")
                     .setMessage("입력된 수정을 반영하시겠습니까?")
                     .setPositiveButton("네", (dialog, index) -> {
@@ -61,7 +61,7 @@ public class SellingPriceModifyActivity extends AppCompatActivity {
 
         findViewById(R.id.back).setOnClickListener(v -> {
             Log.i("onclick(): ","back");
-            AlertDialog.Builder msgBuilder = new AlertDialog.Builder(SellingPriceModifyActivity.this)
+            AlertDialog.Builder msgBuilder = new AlertDialog.Builder(SellingPriceTableModifyActivity.this)
                     .setTitle("수정 취소")
                     .setMessage("수정을 취소하시겠습니까?")
                     .setPositiveButton("네", (dialog, i) -> onBackPressed())

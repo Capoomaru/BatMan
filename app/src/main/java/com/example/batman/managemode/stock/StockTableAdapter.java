@@ -10,14 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.batman.db.BatteryData;
 import com.example.batman.R;
-import com.example.batman.utils.ICallBackTextWatcher;
-import com.example.batman.utils.MinusClickListener;
+import com.example.batman.share.utils.ICallBackTextWatcher;
+import com.example.batman.share.utils.MinusClickListener;
 
 import java.util.ArrayList;
 
 public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
     protected ArrayList<BatteryData> list;
-    private Context context;
     private boolean has_minus;
     private ArrayList<Integer> rmList;
 

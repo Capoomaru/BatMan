@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BatMan">
         <activity
-            android:name=".AddStockActivity"
+            android:name=".share.AddStockActivity"
             android:exported="false" />
-        <activity android:name=".AddTransactionActivity" />
-        <activity android:name=".sellmode.sellingprice.SellingPriceModifyActivity" />
+        <activity android:name=".share.AddTransactionActivity" />
+        <activity android:name=".sellmode.sellingprice.SellingPriceTableModifyActivity" />
         <activity android:name=".sellmode.SellMainActivity" />
         <activity android:name=".managemode.stock.StockTableModifyActivity" />
         <activity android:name=".managemode.transaction.TransactionTableModifyActivity" />

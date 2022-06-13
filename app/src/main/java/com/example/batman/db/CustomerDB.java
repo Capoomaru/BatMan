@@ -1,7 +1,8 @@
 package com.example.batman.db;
 
+import java.util.ArrayList;
+
 public class CustomerDB {
     private Customer customer;
-    private TransactionSellData lastTransaction;
-
+    private ArrayList<TransactionSellData> transactionList;
 }

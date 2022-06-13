@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.batman.AddTransactionActivity;
+import com.example.batman.share.AddTransactionActivity;
 import com.example.batman.db.BatteryDB;
 import com.example.batman.db.BatteryData;
 import com.example.batman.R;
@@ -53,20 +53,14 @@ public class StockTableFragment extends Fragment {
             AlertDialog.Builder msgBuilder = new AlertDialog.Builder(getActivity())
                     .setTitle("모드 선택으로 돌아가기")
                     .setMessage("모드 선택화면으로 돌아가시겠습니까?")
-                    .setPositiveButton("네", (dialog, i) -> startActivity(SelectModeActivity.class))
+                    .setPositiveButton("네", (dialog, i) -> backToSelectMode(SelectModeActivity.class))
                     .setNegativeButton("아니요", (dialog, which) -> { });
             msgBuilder.create();
             msgBuilder.show();
         });
 
         v.findViewById(R.id.add_button).setOnClickListener(view -> {
-            Log.i("onclick(): ","add");
-            Intent intent = getActivity().getIntent();
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("batteryList", batteryList);
-            intent.putExtra("isStock", true);
-            intent.setClass(getActivity(), AddTransactionActivity.class);
-            startActivity(intent);
+            startAddTransaction();
         });
 
         return v;
@@ -76,6 +70,26 @@ public class StockTableFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        getDataFromDB();
+    }
+
+    void backToSelectMode(Class c) {
+        Intent intent = new Intent(getActivity(), c);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    void startAddTransaction() {
+        Log.i("onclick(): ","add");
+        Intent intent = getActivity().getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("batteryList", batteryList);
+        intent.putExtra("isStock", true);
+        intent.setClass(getActivity(), AddTransactionActivity.class);
+        startActivity(intent);
+    }
+
+    void getDataFromDB() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Stock").orderBy("batName").addSnapshotListener((value, error) -> {
             if (error != null) {
@@ -102,12 +116,5 @@ public class StockTableFragment extends Fragment {
 
         });
     }
-
-    private void startActivity(Class c) {
-        Intent intent = new Intent(getActivity(), c);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
-
 
 }

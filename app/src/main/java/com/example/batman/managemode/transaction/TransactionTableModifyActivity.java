@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.batman.db.TransactionStockData;
 import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
-import com.example.batman.adapter.TransactionPurchaseTableAdapter;
-import com.example.batman.adapter.TransactionSellTableAdapter;
+import com.example.batman.share.TransactionStockTableAdapter;
+import com.example.batman.share.TransactionSellTableAdapter;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -33,7 +33,7 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
         boolean isSell = intent.getBooleanExtra("isSell", false);
 
         ArrayList<TransactionSellData> transactionSellDataList = isSell ? TransactionSellData.cloneList((ArrayList<TransactionSellData>) intent.getSerializableExtra("transactionSellList")) : null;
-        ArrayList<TransactionStockData> transactionStockDataList = isSell ? null : TransactionStockData.cloneList((ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionPurchaseList"));
+        ArrayList<TransactionStockData> transactionStockDataList = isSell ? null : TransactionStockData.cloneList((ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionStockList"));
 
         RecyclerView recyclerView = findViewById(R.id.rv_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
@@ -45,7 +45,7 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
             findViewById(R.id.topPanel2).setVisibility(View.INVISIBLE);
             ((TextView) findViewById(R.id.is_card)).setText("매입\n수량");
 
-            TransactionPurchaseTableAdapter purchaseAdapter = new TransactionPurchaseTableAdapter(transactionStockDataList, true);
+            TransactionStockTableAdapter purchaseAdapter = new TransactionStockTableAdapter(transactionStockDataList, true);
             recyclerView.setAdapter(purchaseAdapter);
         }
 
@@ -91,7 +91,7 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
                             }
                         } else {
                             originPurchaseList = (ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionPurchaseList");
-                            rmList = ((TransactionPurchaseTableAdapter) recyclerView.getAdapter()).getRmList();
+                            rmList = ((TransactionStockTableAdapter) recyclerView.getAdapter()).getRmList();
 
                             rmList.forEach(i -> {
                                 TransactionStockData data = originPurchaseList.get(i);

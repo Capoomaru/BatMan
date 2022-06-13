@@ -1,4 +1,4 @@
-package com.example.batman;
+package com.example.batman.share;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,11 +15,13 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.batman.R;
 import com.example.batman.db.BatteryData;
 import com.example.batman.db.TransactionStockData;
 import com.example.batman.db.TransactionSellData;
-import com.example.batman.utils.NumTextWatcher;
-import com.example.batman.utils.TransactionNumTextWatcher;
+import com.example.batman.share.utils.DateUtils;
+import com.example.batman.share.utils.NumTextWatcher;
+import com.example.batman.share.utils.TransactionNumTextWatcher;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -30,6 +32,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddTransactionActivity extends AppCompatActivity {
+    private EditText inventoryCountText, priceText, countText, totalText, carNumberText, carCategoryText,phoneNumberText;
+    private Spinner nameSpinner, yearSpinner, monthSpinner, daySpinner;
+    private RadioGroup isStockRadio, isCardRadio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,23 +43,22 @@ public class AddTransactionActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         ArrayList<BatteryData> batteryList = (ArrayList<BatteryData>) intent.getSerializableExtra("batteryList");
-        ArrayList<String> nameList = BatteryData.toNameArray(batteryList);
 
-        Spinner nameSpinner = findViewById(R.id.batNameSpinner);
-        EditText inventoryCountText = findViewById(R.id.inventoryCount);
-        RadioGroup isStockRadio = findViewById(R.id.isStock);
-        RadioGroup isCardRadio = findViewById(R.id.isCredit);
-        Spinner yearSpinner = findViewById(R.id.yearSpinner);
-        Spinner monthSpinner = findViewById(R.id.monthSpinner);
-        Spinner daySpinner = findViewById(R.id.daySpinner);
-        EditText priceText = findViewById(R.id.price);
-        EditText countText = findViewById(R.id.count);
-        EditText totalText = findViewById(R.id.priceTotal);
-        EditText carNumberText = findViewById(R.id.carNumber);
-        EditText carCategoryText = findViewById(R.id.carCategory);
-        EditText phoneNumberText = findViewById(R.id.phoneNumber);
+        nameSpinner = findViewById(R.id.batNameSpinner);
+        inventoryCountText = findViewById(R.id.inventoryCount);
+        isStockRadio = findViewById(R.id.isStock);
+        isCardRadio = findViewById(R.id.isCredit);
+        yearSpinner = findViewById(R.id.yearSpinner);
+        monthSpinner = findViewById(R.id.monthSpinner);
+        daySpinner = findViewById(R.id.daySpinner);
+        priceText = findViewById(R.id.price);
+        countText = findViewById(R.id.count);
+        totalText = findViewById(R.id.priceTotal);
+        carNumberText = findViewById(R.id.carNumber);
+        carCategoryText = findViewById(R.id.carCategory);
+        phoneNumberText = findViewById(R.id.phoneNumber);
 
-        ArrayAdapter<BatteryData> nameAdapter = new ArrayAdapter<BatteryData>(this, R.layout.support_simple_spinner_dropdown_item, batteryList);
+        ArrayAdapter<BatteryData> nameAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, batteryList);
         nameSpinner.setAdapter(nameAdapter);
         nameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -131,77 +135,81 @@ public class AddTransactionActivity extends AppCompatActivity {
 
         /* 완료 버튼을 눌렀을 때*/
         findViewById(R.id.complete).setOnClickListener(v -> {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-            String batName = nameSpinner.getSelectedItem().toString();
-            boolean isStock = false, isCard = true;
-            switch(isStockRadio.getCheckedRadioButtonId()) {
-                case R.id.radio_stock:
-                    isStock = true;
-                    break;
-                case R.id.radio_sell:
-                    isStock = false;
-                    break;
-            }
-            switch(isCardRadio.getCheckedRadioButtonId()) {
-                case R.id.radio_cash:
-                    isCard = false;
-                    break;
-
-                case R.id.radio_card:
-                    isCard = true;
-                    break;
-            }
-
-            int year = (int)yearSpinner.getSelectedItem();
-            int month = (int)monthSpinner.getSelectedItem();
-            int day = (int)daySpinner.getSelectedItem();
-            Calendar date = new Calendar.Builder().setDate(year, month, day).build();
-            if(todayDay == day && todayMonth == month && todayYear == year)
-                date = Calendar.getInstance();  //오늘 날짜면, 현재 시간까지 입력
-
-            int price = Integer.parseInt(priceText.getText().toString().replaceAll(",", ""));
-            int count = Integer.parseInt(countText.getText().toString().replaceAll(",",""));
-            int priceTotal = Integer.parseInt(totalText.getText().toString().replaceAll(",", ""));
-
-
-            if (isStock) {
-                TransactionStockData newTransaction = new TransactionStockData(batName, isCard, isStock, date.getTime(), price, count, priceTotal);
-
-                db.collection("Transaction").document(newTransaction.getDate().toString()).set(newTransaction);
-                db.collection("Stock").document(batName).get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        int prev = Integer.parseInt(document.get("count").toString());
-                        db.collection("Stock").document(batName).update("count",prev + newTransaction.getCount());
-                    }
-                });
-            }
-            else {
-                String carNumber = carNumberText.getText().toString().trim();
-                String carCategory = carCategoryText.getText().toString().trim();
-                String phoneNumber = phoneNumberText.getText().toString().trim();
-                Map customerInfo = new HashMap();
-                customerInfo.put("carNumber", carNumber);
-                customerInfo.put("carCategory", carCategory);
-                customerInfo.put("phoneNumber", phoneNumber);
-                TransactionSellData newTransaction = new TransactionSellData(batName, isCard, isStock, date.getTime(), price, count, priceTotal, carNumber, carCategory, phoneNumber);
-
-                db.collection("Transaction").document(newTransaction.getDate().toString()).set(newTransaction);
-                db.collection("Stock").document(batName).get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        int prev = Integer.parseInt(document.get("count").toString());
-                        db.collection("Stock").document(batName).update("count",prev - newTransaction.getCount());
-                        db.collection("Customer").document(carNumber+phoneNumber).set(customerInfo);
-                        db.collection("Customer").document(carNumber+phoneNumber).collection("TransactionList").document(newTransaction.getDate().toString()).set(newTransaction);
-                    }
-                });
-
-            }
-
+            saveToDB();
             finish();
-
         });
+    }
+
+    void saveToDB() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        String batName = nameSpinner.getSelectedItem().toString();
+        boolean isStock = false, isCard = true;
+        switch(isStockRadio.getCheckedRadioButtonId()) {
+            case R.id.radio_stock:
+                isStock = true;
+                break;
+            case R.id.radio_sell:
+                isStock = false;
+                break;
+        }
+        switch(isCardRadio.getCheckedRadioButtonId()) {
+            case R.id.radio_cash:
+                isCard = false;
+                break;
+
+            case R.id.radio_card:
+                isCard = true;
+                break;
+        }
+
+        DateUtils dateUtils = new DateUtils();
+        int year = (int)yearSpinner.getSelectedItem();
+        int month = (int)monthSpinner.getSelectedItem();
+        int day = (int)daySpinner.getSelectedItem();
+        Calendar date = new Calendar.Builder().setDate(year, month, day).build();
+        if(date.equals(dateUtils.getToday()))
+            date = Calendar.getInstance();  //오늘 날짜면, 현재 시간까지 입력
+
+        int price = Integer.parseInt(priceText.getText().toString().replaceAll(",", ""));
+        int count = Integer.parseInt(countText.getText().toString().replaceAll(",",""));
+        int priceTotal = Integer.parseInt(totalText.getText().toString().replaceAll(",", ""));
+
+
+        if (isStock) {
+            TransactionStockData newTransaction = new TransactionStockData(batName, isCard, isStock, date.getTime(), price, count, priceTotal);
+
+            db.collection("Transaction").document(newTransaction.getDate().toString()).set(newTransaction);
+            db.collection("Stock").document(batName).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    int prev = Integer.parseInt(document.get("count").toString());
+                    db.collection("Stock").document(batName).update("count",prev + newTransaction.getCount());
+                }
+            });
+        }
+        else {
+            String carNumber = carNumberText.getText().toString().trim();
+            String carCategory = carCategoryText.getText().toString().trim();
+            String phoneNumber = phoneNumberText.getText().toString().trim();
+
+            Map customerInfo = new HashMap();
+            customerInfo.put("carNumber", carNumber);
+            customerInfo.put("carCategory", carCategory);
+            customerInfo.put("phoneNumber", phoneNumber);
+            TransactionSellData newTransaction = new TransactionSellData(batName, isCard, isStock, date.getTime(), price, count, priceTotal, carNumber, carCategory, phoneNumber);
+
+            db.collection("Transaction").document(newTransaction.getDate().toString()).set(newTransaction);
+            db.collection("Stock").document(batName).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    int prev = Integer.parseInt(document.get("count").toString());
+                    db.collection("Stock").document(batName).update("count",prev - newTransaction.getCount());
+                    db.collection("Customer").document(carNumber+phoneNumber).set(customerInfo);
+                    db.collection("Customer").document(carNumber+phoneNumber).collection("TransactionList").document(newTransaction.getDate().toString()).set(newTransaction);
+                }
+            });
+
+        }
     }
 }

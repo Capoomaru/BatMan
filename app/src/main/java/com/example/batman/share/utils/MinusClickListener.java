@@ -1,4 +1,4 @@
-package com.example.batman.utils;
+package com.example.batman.share.utils;
 
 import android.view.View;
 
