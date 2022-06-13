@@ -80,6 +80,7 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
         };
         batNameView.addTextChangedListener(nameTextWatcher);
         sellingPriceView.addTextChangedListener(priceTextWatcher);
+        minusButton.setOnClickListener(v -> minusClickListener.onMinusCLick(v, getAdapterPosition()));
 
     }
 
