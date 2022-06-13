@@ -36,17 +36,17 @@ public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceT
         View view = inflater.inflate(R.layout.item_selling_table, parent, false);
 
         /*
-        * % 리사이클러뷰에서 EditText의 textWatcher 사용시 유의사항 %
-        *   문제점) 리사이클러뷰에서 EditText의 값을 변경하고 스크롤하게 될 경우 변경된 뷰의 값이 실제 데이터(모델)에 업데이트되지 않아서 데이터 유실이 발생함
-        *   해결책) 이를 방지하기위해 ITextWatcher interface를 구현하고 이를 넘겨줌으로써 컨트롤러에서 뷰의 값을 실제 데이터(모델)에 업데이트한다.
-        *  */
+         * % 리사이클러뷰에서 EditText의 textWatcher 사용시 유의사항 %
+         *   문제점) 리사이클러뷰에서 EditText의 값을 변경하고 스크롤하게 될 경우 변경된 뷰의 값이 실제 데이터(모델)에 업데이트되지 않아서 데이터 유실이 발생함
+         *   해결책) 이를 방지하기위해 ITextWatcher interface를 구현하고 이를 넘겨줌으로써 컨트롤러에서 뷰의 값을 실제 데이터(모델)에 업데이트한다.
+         *  */
         ICallBackTextWatcher nameWatcher = (position, s, start, before, count) -> list.get(position).setBatName(s.toString());
         ICallBackTextWatcher priceWatcher = (position, s, start, before, count) -> {
 
-            if(s.toString().equals(""))
+            if (s.toString().equals(""))
                 list.get(position).setSellingPrice(0);
             else
-                list.get(position).setSellingPrice(Integer.parseInt(s.toString().replaceAll(",","")));
+                list.get(position).setSellingPrice(Integer.parseInt(s.toString().replaceAll(",", "")));
         };
 
         MinusClickListener minusClickListener = (view1, position) -> {
@@ -74,5 +74,7 @@ public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceT
     }
 
 
-    public ArrayList<Integer> getRmList() {return rmList;}
+    public ArrayList<Integer> getRmList() {
+        return rmList;
+    }
 }

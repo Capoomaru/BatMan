@@ -37,17 +37,18 @@ public class StockTableModifyActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(sellingPriceTableAdapter);
 
-        ((TextView)findViewById(R.id.modify)).setText("완료");
+        ((TextView) findViewById(R.id.modify)).setText("완료");
 
         findViewById(R.id.modify).setOnClickListener(v -> saveToDB());
 
         findViewById(R.id.back).setOnClickListener(v -> {
-            Log.i("onclick(): ","back");
+            Log.i("onclick(): ", "back");
             AlertDialog.Builder msgBuilder = new AlertDialog.Builder(StockTableModifyActivity.this)
                     .setTitle("수정 취소")
                     .setMessage("수정을 취소하시겠습니까?")
                     .setPositiveButton("네", (dialog, i) -> onBackPressed())
-                    .setNegativeButton("아니요", (dialog, which) -> { });
+                    .setNegativeButton("아니요", (dialog, which) -> {
+                    });
             msgBuilder.create();
             msgBuilder.show();
         });
@@ -76,8 +77,11 @@ public class StockTableModifyActivity extends AppCompatActivity {
                         originList.remove(i);                                                                 //비교 대상과 인덱스 동기화화
                     });
 
-                    for(int i=0;i<batteryList.size();i++) {
-                        if(!batteryList.get(i).equals(originList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
+                    for (int i = 0; i < batteryList.size(); i++) {
+                        if (!batteryList.get(i).equals(originList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
+                            if (!batteryList.get(i).getBatName().equals(originList.get(i).getBatName()))
+                                db.collection("Stock").document(originList.get(i).getBatName()).delete();
+
                             db.collection("Stock").document(batteryList.get(i).getBatName())
                                     .set(batteryList.get(i));
                             db.collection("Stock").document(batteryList.get(i).getBatName())

@@ -31,7 +31,7 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
         batNameView = itemView.findViewById(R.id.batName);
         sellingPriceView = itemView.findViewById(R.id.selling_price);
         minusButton = itemView.findViewById(R.id.minus);
-        minusButton.setOnClickListener(view -> Log.w("onclick(minus) :",getAdapterPosition()+"minus"));
+        minusButton.setOnClickListener(view -> Log.w("onclick(minus) :", getAdapterPosition() + "minus"));
 
         rmList = new ArrayList<>();
         minusButton.setOnClickListener(v -> {
@@ -56,8 +56,9 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
         };
 
         TextWatcher priceTextWatcher = new TextWatcher() {
-            String result="";
+            String result = "";
             private DecimalFormat decimalFormat = new DecimalFormat("#,###");
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -65,8 +66,8 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 priceWatcher.onTextChanged(getAdapterPosition(), s, start, before, count);
-                if(!TextUtils.isEmpty(s.toString()) && !s.toString().equals(result)){
-                    result = decimalFormat.format(Double.parseDouble(s.toString().replaceAll(",","")));
+                if (!TextUtils.isEmpty(s.toString()) && !s.toString().equals(result)) {
+                    result = decimalFormat.format(Double.parseDouble(s.toString().replaceAll(",", "")));
                     sellingPriceView.setText(result);
                     sellingPriceView.setSelection(result.length());
                 }
@@ -74,7 +75,7 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().equals(""))
+                if (s.toString().equals(""))
                     sellingPriceView.setText("0");
             }
         };
@@ -89,7 +90,7 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
 
         batNameView.setText(batteryData.getBatName());
         sellingPriceView.setText(format.format(batteryData.getSellingPrice()));
-        if(getItemViewType() == 1) {
+        if (getItemViewType() == 1) {
             minusButton.setVisibility(View.VISIBLE);
             batNameView.setEnabled(true);
             sellingPriceView.setEnabled(true);

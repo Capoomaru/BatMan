@@ -38,16 +38,14 @@ public class ManageMainActivity extends AppCompatActivity {
                         if (stockTableFragment == null) {                   //처음 탭 선택시
                             stockTableFragment = new StockTableFragment();  //객체 생성후
                             addFragment(stockTableFragment);                //화면 전환
-                        }
-                        else                                                //이미 존재하는 경우
+                        } else                                                //이미 존재하는 경우
                             showFragment(stockTableFragment);               //기존 객체로 화면 전환
                         break;
                     case 1: //거래 기록 탭
                         if (transactionTableFragment == null) {             //처음 탭 선택시
                             transactionTableFragment = new TransactionTableFragment(); //객체 생성후
                             addFragment(transactionTableFragment);          //화면 전환
-                        }
-                        else                                                //이미 존재하는 경우
+                        } else                                                //이미 존재하는 경우
                             showFragment(transactionTableFragment);         //기존 객체로 화면 전환
                         break;
                     case 2: //통계 탭 -> 미구현 //TODO : StaticsFragment 구현 필요
@@ -79,12 +77,12 @@ public class ManageMainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         List<Fragment> fragmentList = fragmentManager.getFragments();
 
-        for(Fragment fragment : fragmentList) {
-            if(!(targetFragment.equals(fragment)))
+        for (Fragment fragment : fragmentList) {
+            if (!(targetFragment.equals(fragment)))
                 fragmentTransaction.hide(fragment);
         }
 
-        fragmentTransaction.add(R.id.main_frame, targetFragment,targetFragment.getClass().getSimpleName());
+        fragmentTransaction.add(R.id.main_frame, targetFragment, targetFragment.getClass().getSimpleName());
         fragmentTransaction.commit();
     }
 
@@ -93,8 +91,8 @@ public class ManageMainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         List<Fragment> fragmentList = fragmentManager.getFragments();
 
-        for(Fragment fragment : fragmentList) {
-            if(!(targetFragment.equals(fragment)))
+        for (Fragment fragment : fragmentList) {
+            if (!(targetFragment.equals(fragment)))
                 fragmentTransaction.hide(fragment);
         }
 

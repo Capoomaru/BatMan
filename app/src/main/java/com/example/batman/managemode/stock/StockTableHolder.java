@@ -25,7 +25,7 @@ public class StockTableHolder extends RecyclerView.ViewHolder {
     protected ImageView minusButton;
     protected ArrayList<Integer> rmList;
 
-    public StockTableHolder(@NonNull View itemView , ICallBackTextWatcher nameWatcher, ICallBackTextWatcher priceWatcher, ICallBackTextWatcher countWatcher, MinusClickListener minusClickListener) {
+    public StockTableHolder(@NonNull View itemView, ICallBackTextWatcher nameWatcher, ICallBackTextWatcher priceWatcher, ICallBackTextWatcher countWatcher, MinusClickListener minusClickListener) {
         super(itemView);
         batNameView = itemView.findViewById(R.id.batName);
         purchasePriceView = itemView.findViewById(R.id.purchase_price);
@@ -37,7 +37,7 @@ public class StockTableHolder extends RecyclerView.ViewHolder {
             rmList.add(getAdapterPosition());
         });
 
-        batNameView.addTextChangedListener(new TextWatcher(){
+        batNameView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }

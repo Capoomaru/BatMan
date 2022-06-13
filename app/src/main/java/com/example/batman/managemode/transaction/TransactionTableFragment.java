@@ -58,7 +58,7 @@ public class TransactionTableFragment extends Fragment {
         btnSell.setOnClickListener(v1 -> {
             isStockView = false;
 
-            ((TextView)v.findViewById(R.id.is_card)).setText("결제\n수단");
+            ((TextView) v.findViewById(R.id.is_card)).setText("결제\n수단");
             v.findViewById(R.id.topPanel2).setVisibility(View.VISIBLE);
             btnSell.setChecked(true);
             btnStock.setChecked(false);
@@ -68,7 +68,7 @@ public class TransactionTableFragment extends Fragment {
         btnStock.setOnClickListener(v1 -> {
             isStockView = true;
 
-            ((TextView)v.findViewById(R.id.is_card)).setText("매입\n수량");
+            ((TextView) v.findViewById(R.id.is_card)).setText("매입\n수량");
             v.findViewById(R.id.topPanel2).setVisibility(View.INVISIBLE);
             btnSell.setChecked(false);
             btnStock.setChecked(true);
@@ -78,12 +78,11 @@ public class TransactionTableFragment extends Fragment {
         v.findViewById(R.id.modify).setOnClickListener(v1 -> {
             Intent intent = getActivity().getIntent();
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            if(!isStockView) {
+            if (!isStockView) {
                 intent.putExtra("transactionSellList", transactionSellDataList);
                 intent.putExtra("isSell", true);
 
-            }
-            else {
+            } else {
                 intent.putExtra("transactionStockList", transactionStockDataList);
                 intent.putExtra("isSell", false);
             }
@@ -92,12 +91,13 @@ public class TransactionTableFragment extends Fragment {
         });
 
         v.findViewById(R.id.back).setOnClickListener(v1 -> {
-            Log.i("onclick(): ","back");
+            Log.i("onclick(): ", "back");
             AlertDialog.Builder msgBuilder = new AlertDialog.Builder(getActivity())
                     .setTitle("모드 선택으로 돌아가기")
                     .setMessage("모드 선택화면으로 돌아가시겠습니까?")
                     .setPositiveButton("네", (dialog, i) -> backToSelectMode(SelectModeActivity.class))
-                    .setNegativeButton("아니요", (dialog, which) -> { });
+                    .setNegativeButton("아니요", (dialog, which) -> {
+                    });
             msgBuilder.create();
             msgBuilder.show();
         });
@@ -126,7 +126,7 @@ public class TransactionTableFragment extends Fragment {
             value.getDocumentChanges().forEach(documentChange -> {
                 switch (documentChange.getType()) {
                     case ADDED:
-                        if(!transactionSellDataList.contains(documentChange.getDocument().toObject(TransactionSellData.class)))
+                        if (!transactionSellDataList.contains(documentChange.getDocument().toObject(TransactionSellData.class)))
                             transactionSellDataList.add(documentChange.getDocument().toObject(TransactionSellData.class));
                         break;
                     case MODIFIED:
@@ -150,7 +150,7 @@ public class TransactionTableFragment extends Fragment {
             value.getDocumentChanges().forEach(documentChange -> {
                 switch (documentChange.getType()) {
                     case ADDED:
-                        if(!transactionStockDataList.contains(documentChange.getDocument().toObject(TransactionStockData.class)))
+                        if (!transactionStockDataList.contains(documentChange.getDocument().toObject(TransactionStockData.class)))
                             transactionStockDataList.add(documentChange.getDocument().toObject(TransactionStockData.class));
                         break;
                     case MODIFIED:

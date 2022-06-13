@@ -51,10 +51,12 @@ public class SellMainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
 
     }
@@ -71,12 +73,12 @@ public class SellMainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         List<Fragment> fragmentList = fragmentManager.getFragments();
 
-        for(Fragment fragment : fragmentList) {
-            if(!(targetFragment.equals(fragment)))
+        for (Fragment fragment : fragmentList) {
+            if (!(targetFragment.equals(fragment)))
                 fragmentTransaction.hide(fragment);
         }
 
-        fragmentTransaction.add(R.id.main_frame, targetFragment,targetFragment.getClass().getSimpleName());
+        fragmentTransaction.add(R.id.main_frame, targetFragment, targetFragment.getClass().getSimpleName());
         fragmentTransaction.commit();
     }
 
@@ -85,8 +87,8 @@ public class SellMainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         List<Fragment> fragmentList = fragmentManager.getFragments();
 
-        for(Fragment fragment : fragmentList) {
-            if(!(targetFragment.equals(fragment)))
+        for (Fragment fragment : fragmentList) {
+            if (!(targetFragment.equals(fragment)))
                 fragmentTransaction.hide(fragment);
         }
 

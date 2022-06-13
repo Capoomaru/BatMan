@@ -22,7 +22,7 @@ public class TransactionStockTableAdapter extends RecyclerView.Adapter<Transacti
 
     public TransactionStockTableAdapter(ArrayList<TransactionStockData> list, boolean has_minus) {
         this.list = list;
-        this.has_minus=has_minus;
+        this.has_minus = has_minus;
         this.rmList = new ArrayList<>();
     }
 
@@ -36,16 +36,16 @@ public class TransactionStockTableAdapter extends RecyclerView.Adapter<Transacti
         ArrayList<ICallBackTextWatcher> callbackWatcherList = new ArrayList<>();
         callbackWatcherList.add((position, s, start, before, count) -> list.get(position).setBatName(s.toString()));
         callbackWatcherList.add((position, s, start, before, count) -> {
-            if(s.toString().equals(""))
+            if (s.toString().equals(""))
                 list.get(position).setPurchasePrice(0);
             else
-                list.get(position).setPurchasePrice(Integer.parseInt(s.toString().replaceAll(",","")));
+                list.get(position).setPurchasePrice(Integer.parseInt(s.toString().replaceAll(",", "")));
         });
         callbackWatcherList.add((position, s, start, before, count) -> {
-            if(s.toString().equals(""))
+            if (s.toString().equals(""))
                 list.get(position).setCount(0);
             else
-                list.get(position).setCount(Integer.parseInt(s.toString().replaceAll(",","")));
+                list.get(position).setCount(Integer.parseInt(s.toString().replaceAll(",", "")));
         });
         MinusClickListener minusClickListener = (view1, position) -> {
             rmList.add(position);
@@ -71,5 +71,7 @@ public class TransactionStockTableAdapter extends RecyclerView.Adapter<Transacti
         return list.size();
     }
 
-    public ArrayList<Integer> getRmList() { return rmList; }
+    public ArrayList<Integer> getRmList() {
+        return rmList;
+    }
 }

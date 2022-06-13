@@ -49,12 +49,13 @@ public class StockTableFragment extends Fragment {
         });
 
         v.findViewById(R.id.back).setOnClickListener(v1 -> {
-            Log.i("onclick(): ","back");
+            Log.i("onclick(): ", "back");
             AlertDialog.Builder msgBuilder = new AlertDialog.Builder(getActivity())
                     .setTitle("모드 선택으로 돌아가기")
                     .setMessage("모드 선택화면으로 돌아가시겠습니까?")
                     .setPositiveButton("네", (dialog, i) -> backToSelectMode(SelectModeActivity.class))
-                    .setNegativeButton("아니요", (dialog, which) -> { });
+                    .setNegativeButton("아니요", (dialog, which) -> {
+                    });
             msgBuilder.create();
             msgBuilder.show();
         });
@@ -80,7 +81,7 @@ public class StockTableFragment extends Fragment {
     }
 
     void startAddTransaction() {
-        Log.i("onclick(): ","add");
+        Log.i("onclick(): ", "add");
         Intent intent = getActivity().getIntent();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("batteryList", batteryList);
@@ -99,7 +100,7 @@ public class StockTableFragment extends Fragment {
             value.getDocumentChanges().forEach(documentChange -> {
                 switch (documentChange.getType()) {
                     case ADDED:
-                        if(!batteryList.contains(documentChange.getDocument().toObject(BatteryDB.class)))
+                        if (!batteryList.contains(documentChange.getDocument().toObject(BatteryDB.class)))
                             batteryList.add(documentChange.getDocument().toObject(BatteryDB.class));
                         break;
                     case MODIFIED:

@@ -36,7 +36,8 @@ public class TransactionSellTableHolder extends RecyclerView.ViewHolder {
 
         batNameView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -44,7 +45,8 @@ public class TransactionSellTableHolder extends RecyclerView.ViewHolder {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
         sellPriceView.addTextChangedListener(new NumTextWatcher(sellPriceView) {
             @Override
@@ -55,7 +57,8 @@ public class TransactionSellTableHolder extends RecyclerView.ViewHolder {
         });
         isCardView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -63,11 +66,13 @@ public class TransactionSellTableHolder extends RecyclerView.ViewHolder {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
         carNumberView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -75,11 +80,13 @@ public class TransactionSellTableHolder extends RecyclerView.ViewHolder {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
         carCategoryView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -87,7 +94,8 @@ public class TransactionSellTableHolder extends RecyclerView.ViewHolder {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
         phoneNumberView.addTextChangedListener(new PhoneNumberFormattingTextWatcher() {
             @Override
@@ -104,12 +112,12 @@ public class TransactionSellTableHolder extends RecyclerView.ViewHolder {
 
         dateView.setText(dateFormat.format(data.getDate()));
         batNameView.setText(data.getBatName());
-        sellPriceView.setText(""+data.getSellPrice());
+        sellPriceView.setText("" + data.getSellPrice());
         isCardView.setText(data.isCard() ? "카드" : "현금");
         carNumberView.setText(data.getCarNumber());
         carCategoryView.setText(data.getCarCategory());
         phoneNumberView.setText(data.getPhoneNumber());
-        if(getItemViewType() == 1) {
+        if (getItemViewType() == 1) {
             minusButton.setVisibility(View.VISIBLE);
             batNameView.setEnabled(true);
             sellPriceView.setEnabled(true);

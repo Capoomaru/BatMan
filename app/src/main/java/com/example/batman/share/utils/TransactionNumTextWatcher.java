@@ -3,7 +3,7 @@ package com.example.batman.share.utils;
 import android.text.Editable;
 import android.widget.EditText;
 
-public class TransactionNumTextWatcher extends NumTextWatcher{
+public class TransactionNumTextWatcher extends NumTextWatcher {
     private EditText editText, operand, target;
 
     public TransactionNumTextWatcher(EditText editText, EditText operand, EditText target) {
@@ -15,12 +15,12 @@ public class TransactionNumTextWatcher extends NumTextWatcher{
 
     @Override
     public void afterTextChanged(Editable s) {
-        if(s.toString().equals("")) {
+        if (s.toString().equals("")) {
             editText.setText("0");
             editText.setSelection("0".length());
         }
-        if(!s.toString().equals("") && !operand.getText().equals(""))
-            target.setText(""+(Integer.parseInt(s.toString().replaceAll(",","")) * Integer.parseInt(operand.getText().toString().replaceAll(",",""))));
+        if (!s.toString().equals("") && !operand.getText().equals(""))
+            target.setText("" + (Integer.parseInt(s.toString().replaceAll(",", "")) * Integer.parseInt(operand.getText().toString().replaceAll(",", ""))));
 
     }
 }

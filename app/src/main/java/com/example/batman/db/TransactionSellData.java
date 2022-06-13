@@ -55,12 +55,14 @@ public class TransactionSellData extends TransactionData implements Serializable
     }
 
     public String getFindString() {
+        this.findString = carNumber+carCategory+phoneNumber;
         return findString;
     }
 
     public void setFindString(String findString) {
         this.findString = findString;
     }
+    public void setFindString() { this.findString = carNumber+carCategory+phoneNumber; }
 
     public TransactionSellData() {super();}
 
@@ -119,5 +121,15 @@ public class TransactionSellData extends TransactionData implements Serializable
             }
         }
         return destList;
+    }
+
+    public boolean equalCustomer(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TransactionSellData that = (TransactionSellData) o;
+
+        if (!carNumber.equals(that.carNumber)) return false;
+        if (!phoneNumber.equals(that.phoneNumber)) return false;
+        return true;
     }
 }

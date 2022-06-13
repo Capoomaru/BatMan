@@ -86,8 +86,8 @@ public class CustomerListFragment extends Fragment {
                     case R.id.btn_today:
                         searchPanel.setVisibility(View.INVISIBLE);
                         dataList.clear();
-                        for(TransactionSellData data : originList) {
-                            if(data.getDate().after(dateUtils.getToday()) && data.getDate().before(dateUtils.getTomorrow()))
+                        for (TransactionSellData data : originList) {
+                            if (data.getDate().after(dateUtils.getToday()) && data.getDate().before(dateUtils.getTomorrow()))
                                 dataList.add(data);
                         }
                         recyclerView.getAdapter().notifyDataSetChanged();
@@ -97,8 +97,8 @@ public class CustomerListFragment extends Fragment {
                         searchPanel.setVisibility(View.INVISIBLE);
                         dataList.clear();
                         Log.w("week", dateUtils.getWeekStart().toString() + dateUtils.getWeekEnd().toString());
-                        for(TransactionSellData data : originList) {
-                            if(data.getDate().after(dateUtils.getWeekStart()) && data.getDate().before(dateUtils.getWeekEnd()))
+                        for (TransactionSellData data : originList) {
+                            if (data.getDate().after(dateUtils.getWeekStart()) && data.getDate().before(dateUtils.getWeekEnd()))
                                 dataList.add(data);
                         }
                         recyclerView.getAdapter().notifyDataSetChanged();
@@ -106,8 +106,8 @@ public class CustomerListFragment extends Fragment {
                     case R.id.btn_month:
                         searchPanel.setVisibility(View.INVISIBLE);
                         dataList.clear();
-                        for(TransactionSellData data : originList) {
-                            if(data.getDate().after(dateUtils.getMonthStart()) && data.getDate().before(dateUtils.getMonthEnd()))
+                        for (TransactionSellData data : originList) {
+                            if (data.getDate().after(dateUtils.getMonthStart()) && data.getDate().before(dateUtils.getMonthEnd()))
                                 dataList.add(data);
                         }
                         recyclerView.getAdapter().notifyDataSetChanged();
@@ -117,7 +117,7 @@ public class CustomerListFragment extends Fragment {
                         dataList.clear();
                         recyclerView.getAdapter().notifyDataSetChanged();
                         searchView.setOnKeyListener((v2, keyCode, event) -> {
-                            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                             String searchData;
                             switch (keyCode) {
                                 case KeyEvent.KEYCODE_ENTER: //엔터키 눌렸을 때
@@ -151,12 +151,13 @@ public class CustomerListFragment extends Fragment {
         });
 
         v.findViewById(R.id.back).setOnClickListener(v1 -> {
-            Log.i("onclick(): ","back");
+            Log.i("onclick(): ", "back");
             AlertDialog.Builder msgBuilder = new AlertDialog.Builder(getActivity())
                     .setTitle("모드 선택으로 돌아가기")
                     .setMessage("모드 선택화면으로 돌아가시겠습니까?")
                     .setPositiveButton("네", (dialog, i) -> startActivity(SelectModeActivity.class))
-                    .setNegativeButton("아니요", (dialog, which) -> { });
+                    .setNegativeButton("아니요", (dialog, which) -> {
+                    });
             msgBuilder.create();
             msgBuilder.show();
         });
@@ -171,35 +172,35 @@ public class CustomerListFragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collectionGroup("TransactionList").orderBy("date", Query.Direction.DESCENDING)
-                .whereGreaterThanOrEqualTo("date",dateUtils.getYearStart())
-                .whereLessThanOrEqualTo("date",dateUtils.getYearEnd())
+                .whereGreaterThanOrEqualTo("date", dateUtils.getYearStart())
+                .whereLessThanOrEqualTo("date", dateUtils.getYearEnd())
                 .addSnapshotListener((value, error) -> {
-            if (error != null) {
-                Log.w("snapshot error:", error.getMessage());
-                return;
-            }
+                    if (error != null) {
+                        Log.w("snapshot error:", error.getMessage());
+                        return;
+                    }
 
-            value.getDocumentChanges().forEach(documentChange -> {
-                switch (documentChange.getType()) {
-                    case ADDED:
-                        if(!originList.contains(documentChange.getDocument().toObject(TransactionSellData.class)))
-                            originList.add(documentChange.getDocument().toObject(TransactionSellData.class));
-                        break;
-                    case MODIFIED:
-                        originList.set(documentChange.getOldIndex(), documentChange.getDocument().toObject(TransactionSellData.class));
-                        break;
-                    case REMOVED:
-                        originList.remove(documentChange.getDocument().toObject(TransactionSellData.class));
-                        break;
-                }
-            });
+                    value.getDocumentChanges().forEach(documentChange -> {
+                        switch (documentChange.getType()) {
+                            case ADDED:
+                                if (!originList.contains(documentChange.getDocument().toObject(TransactionSellData.class)))
+                                    originList.add(documentChange.getDocument().toObject(TransactionSellData.class));
+                                break;
+                            case MODIFIED:
+                                originList.set(documentChange.getOldIndex(), documentChange.getDocument().toObject(TransactionSellData.class));
+                                break;
+                            case REMOVED:
+                                originList.remove(documentChange.getDocument().toObject(TransactionSellData.class));
+                                break;
+                        }
+                    });
 
-            for (TransactionSellData data : originList) {
-                if (data.getDate().after(dateUtils.getToday()) && data.getDate().before(dateUtils.getTomorrow()))
-                    dataList.add(data);
-            }
-            recyclerView.getAdapter().notifyDataSetChanged();
-        });
+                    for (TransactionSellData data : originList) {
+                        if (data.getDate().after(dateUtils.getToday()) && data.getDate().before(dateUtils.getTomorrow()))
+                            dataList.add(data);
+                    }
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                });
 
 
     }
@@ -212,7 +213,7 @@ public class CustomerListFragment extends Fragment {
 
     public void searchCustomer(String findString) {
         dataList.clear();
-        findString.replaceAll("-","");
+        findString.replaceAll("-", "");
 
         for (TransactionSellData data : originList) {
             if (data.getCarNumber().matches(".*" + findString + ".*") || data.getCarCategory().matches(".*" + findString + ".*")

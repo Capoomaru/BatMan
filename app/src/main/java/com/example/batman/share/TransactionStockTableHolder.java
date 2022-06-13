@@ -32,7 +32,8 @@ public class TransactionStockTableHolder extends RecyclerView.ViewHolder {
 
         batNameView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -40,7 +41,8 @@ public class TransactionStockTableHolder extends RecyclerView.ViewHolder {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
         purchasePriceView.addTextChangedListener(new NumTextWatcher(purchasePriceView) {
             @Override
@@ -54,7 +56,9 @@ public class TransactionStockTableHolder extends RecyclerView.ViewHolder {
                 callbackWatcherList.get(2).onTextChanged(getAdapterPosition(), s, start, before, count);
             }
         });
-        minusButton.setOnClickListener(v -> {minusClickListener.onMinusCLick(itemView, getAdapterPosition());});
+        minusButton.setOnClickListener(v -> {
+            minusClickListener.onMinusCLick(itemView, getAdapterPosition());
+        });
     }
 
     void onBind(TransactionStockData data) {
@@ -62,9 +66,9 @@ public class TransactionStockTableHolder extends RecyclerView.ViewHolder {
 
         dateView.setText(dateFormat.format(data.getDate()));
         batNameView.setText(data.getBatName());
-        purchasePriceView.setText(""+data.getPurchasePrice());
-        countView.setText(""+data.getCount());
-        if(getItemViewType() == 1) {
+        purchasePriceView.setText("" + data.getPurchasePrice());
+        countView.setText("" + data.getCount());
+        if (getItemViewType() == 1) {
             minusButton.setVisibility(View.VISIBLE);
             batNameView.setEnabled(true);
             purchasePriceView.setEnabled(true);

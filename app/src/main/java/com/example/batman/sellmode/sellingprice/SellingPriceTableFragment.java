@@ -86,7 +86,7 @@ public class SellingPriceTableFragment extends Fragment {
         v.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("onclick(): ","back");
+                Log.i("onclick(): ", "back");
                 AlertDialog.Builder msgBuilder = new AlertDialog.Builder(getActivity())
                         .setTitle("모드 선택으로 돌아가기")
                         .setMessage("모드 선택화면으로 돌아가시겠습니까?")
@@ -96,14 +96,18 @@ public class SellingPriceTableFragment extends Fragment {
                                 startActivity(SelectModeActivity.class);
                             }
                         })
-                        .setNegativeButton("아니요", new DialogInterface.OnClickListener(){@Override public void onClick(DialogInterface dialog, int which) { }});
+                        .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
                 msgBuilder.create();
                 msgBuilder.show();
             }
         });
 
         v.findViewById(R.id.add_button).setOnClickListener(view -> {
-            Log.i("onclick(): ","add");
+            Log.i("onclick(): ", "add");
             Intent intent = getActivity().getIntent();
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("batteryList", batteryList);
@@ -118,7 +122,7 @@ public class SellingPriceTableFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.v("onstart : ","start");
+        Log.v("onstart : ", "start");
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Stock").orderBy("batName").addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -129,20 +133,20 @@ public class SellingPriceTableFragment extends Fragment {
                     return;
                 }
                 value.getDocumentChanges().forEach(documentChange -> {
-                   switch (documentChange.getType()) {
-                       case ADDED:
-                           if(!batteryList.contains((BatteryData)documentChange.getDocument().toObject(BatteryDB.class)))
-                                batteryList.add((BatteryData) documentChange.getDocument().toObject(BatteryDB.class));
-                           break;
-                       case MODIFIED:
-                           batteryList.set(documentChange.getOldIndex(),  (BatteryData)documentChange.getDocument().toObject(BatteryDB.class));
-                           break;
-                       case REMOVED:
-                           batteryList.remove((BatteryData) documentChange.getDocument().toObject(BatteryDB.class));
-                           break;
-                   }
-                   documentChange.getDocument().toObject(BatteryDB.class);
-                   recyclerView.getAdapter().notifyDataSetChanged();
+                    switch (documentChange.getType()) {
+                        case ADDED:
+                            if (!batteryList.contains(documentChange.getDocument().toObject(BatteryDB.class)))
+                                batteryList.add(documentChange.getDocument().toObject(BatteryDB.class));
+                            break;
+                        case MODIFIED:
+                            batteryList.set(documentChange.getOldIndex(), documentChange.getDocument().toObject(BatteryDB.class));
+                            break;
+                        case REMOVED:
+                            batteryList.remove(documentChange.getDocument().toObject(BatteryDB.class));
+                            break;
+                    }
+                    documentChange.getDocument().toObject(BatteryDB.class);
+                    recyclerView.getAdapter().notifyDataSetChanged();
                 });
 
 

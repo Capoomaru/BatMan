@@ -36,7 +36,7 @@ public class NumTextWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        if(s.toString().equals("")) {
+        if (s.toString().equals("")) {
             editText.setText("0");
             editText.setSelection("0".length());
         }

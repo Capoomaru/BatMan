@@ -2,6 +2,7 @@ package com.example.batman.managemode.transaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.batman.db.TransactionStockData;
 import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
+import com.example.batman.sellmode.sellingprice.SellingPriceTableModifyActivity;
 import com.example.batman.share.TransactionStockTableAdapter;
 import com.example.batman.share.TransactionSellTableAdapter;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -58,6 +60,18 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.modify)).setText("완료");
 
+        findViewById(R.id.back).setOnClickListener(v -> {
+            Log.i("onclick(): ", "back");
+            AlertDialog.Builder msgBuilder = new AlertDialog.Builder(TransactionTableModifyActivity.this)
+                    .setTitle("수정 취소")
+                    .setMessage("수정을 취소하시겠습니까?")
+                    .setPositiveButton("네", (dialog, i) -> onBackPressed())
+                    .setNegativeButton("아니요", (dialog, which) -> {
+                    });
+            msgBuilder.create();
+            msgBuilder.show();
+        });
+
         findViewById(R.id.modify).setOnClickListener(v -> {
             AlertDialog.Builder msgBuilder = new AlertDialog.Builder(TransactionTableModifyActivity.this)
                     .setTitle("수정")
@@ -101,10 +115,19 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
             for (int i = 0; i < transactionSellDataList.size(); i++) {
                 if (!transactionSellDataList.get(i).equals(originSellList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
                     TransactionSellData data = transactionSellDataList.get(i);
+                    TransactionSellData originData = originSellList.get(i);
+                    data.setFindString();
                     db.collection("Transaction").document(data.getDate().toString())
                             .set(transactionSellDataList.get(i));
                     db.collection("Customer").document(data.getCarNumber() + data.getPhoneNumber())
                             .collection("TransactionList").document(data.getDate().toString()).set(data);
+                    if (!data.equalCustomer(originData)) {
+                        db.collection("Customer").document(originData.getCarNumber() + originData.getPhoneNumber())
+                                .collection("TransactionList").document(originData.getDate().toString()).delete();
+                        db.collection("Customer").document(data.getCarNumber() + data.getPhoneNumber())
+                                .set(data);
+
+                    }
                 }
             }
         } else {

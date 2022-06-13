@@ -21,7 +21,7 @@ public class AddStockActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_stock);
 
         batNameView = findViewById(R.id.batName);
-        purchasePriceView =  findViewById(R.id.purchasePrice);
+        purchasePriceView = findViewById(R.id.purchasePrice);
         sellingPriceView = findViewById(R.id.sellingPrice);
         purchasePriceView.addTextChangedListener(new NumTextWatcher(purchasePriceView));
         sellingPriceView.addTextChangedListener(new NumTextWatcher(sellingPriceView));
@@ -38,8 +38,8 @@ public class AddStockActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         String batName = batNameView.getText().toString();
-        int purchasePrice = Integer.parseInt(purchasePriceView.getText().toString().replaceAll(",",""));
-        int sellingPrice = Integer.parseInt(sellingPriceView.getText().toString().replaceAll(",",""));
+        int purchasePrice = Integer.parseInt(purchasePriceView.getText().toString().replaceAll(",", ""));
+        int sellingPrice = Integer.parseInt(sellingPriceView.getText().toString().replaceAll(",", ""));
 
         BatteryData newStock = new BatteryData(batName, purchasePrice, sellingPrice, 0);
         db.collection("Stock").document(batName).set(newStock);

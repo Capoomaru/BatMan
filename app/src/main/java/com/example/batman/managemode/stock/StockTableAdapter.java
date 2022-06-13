@@ -35,16 +35,16 @@ public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
 
         ICallBackTextWatcher nameWatcher = (position, s, start, before, count) -> list.get(position).setBatName(s.toString());
         ICallBackTextWatcher priceWatcher = (position, s, start, before, count) -> {
-            if(s.toString().equals(""))
+            if (s.toString().equals(""))
                 list.get(position).setPurchasePrice(0);
             else
-                list.get(position).setPurchasePrice(Integer.parseInt(s.toString().replaceAll(",","")));
+                list.get(position).setPurchasePrice(Integer.parseInt(s.toString().replaceAll(",", "")));
         };
         ICallBackTextWatcher countWatcher = (position, s, start, before, count) -> {
-            if(s.toString().equals(""))
+            if (s.toString().equals(""))
                 list.get(position).setCount(0);
             else
-                list.get(position).setCount(Integer.parseInt(s.toString().replaceAll(",","")));
+                list.get(position).setCount(Integer.parseInt(s.toString().replaceAll(",", "")));
         };
         MinusClickListener minusClickListener = (view1, position) -> {
             rmList.add(position);
@@ -52,7 +52,7 @@ public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
             notifyItemRemoved(position);
         };
 
-        if(has_minus)
+        if (has_minus)
             view.findViewById(R.id.minus).setVisibility(View.VISIBLE);
         return new StockTableHolder(view, nameWatcher, priceWatcher, countWatcher, minusClickListener);
     }
@@ -72,5 +72,7 @@ public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
         return list.size();
     }
 
-    public ArrayList<Integer> getRmList() {return rmList;}
+    public ArrayList<Integer> getRmList() {
+        return rmList;
+    }
 }
