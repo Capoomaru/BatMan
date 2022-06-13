@@ -1,7 +1,7 @@
 # BatMan
-해당 프로그램은 안드로이드 스튜디오의 아래 버전에서 작성되었습니다.
-Android Studio Chipmunk | 2021.2.1
-Build #AI-212.5712.43.2112.8512546, built on April 29, 2022
+해당 프로그램은 안드로이드 스튜디오의 아래 버전에서 작성되었습니다.\n
+Android Studio Chipmunk | 2021.2.1\n
+Build #AI-212.5712.43.2112.8512546, built on April 29, 2022\n
 Runtime version: 11.0.12+7-b1504.28-7817840 amd64
 VM: OpenJDK 64-Bit Server VM by Oracle Corporation
 Windows 10 10.0
