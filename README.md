@@ -10,6 +10,8 @@ Memory: 4096M
 Cores: 16  
 Registry: external.system.auto.import.disabled=true  
 
+min SDK : 26 (안드로이드 oreo)  
+
 소스코드 경로 :   
 (java) ./BatMan/app/src/main/java/com/example/batman 하위 디렉토리  
 (drawble/xml) ./BatMan/app/src/main/res 하위 디렉토리
@@ -23,14 +25,16 @@ Install Type : standard next
 Select UI Theme : anything  
 SDK Components Setup : 오른쪽 아래의 android Framework detected   
   
-깃 주소를 활용한 실행 :  
+
+(**추천**)깃 주소를 활용한 실행 :  
 File - new - Project from Version Control  
 version control : Git 선택  
 URL : https://github.com/Capoomaru/BatMan.git 입력  
 Directory : 기본으로 지정되는 디렉토리를 이용하거나, 원하는 위치로 이동(단, 한글명이 포함된 경로 X)  
 clone 클릭  
 신뢰하는 프로젝트(Trust Project) 선택  
-현재 창에 표시를 원할 시 this window / 새로운 창을 원할 경우 new window를 선택  
+현재 창에 표시를 원할 시 this window / 새로운 창을 원할 경우 new window를 선택
+
   
 다운 받은 소스코드 활용하여 실행 :   
 다운받은 BatMan.zip 파일을 공백, 한글이 포함되지 않는 경로에 압축 해제하고 설치 이후   
@@ -41,4 +45,17 @@ clone 클릭
 finish 클릭  
 현재 창에 표시를 원할 시 this window / 새로운 창을 원할 경우 new window를 선택  
   
-오른쪽 위의 Add Configuration 클릭 - Add New run configuration - (other->android app)  
+사용할 안드로이드 장치(안드로이드 버전 oreo(8) 이상)가 있는 경우,   
+zip 파일 내부의 apk 파일을 스마트폰으로 옮겨 직접 설치하거나  
+개발자 모드를 활성화하여 PC와 유선연결하여 빌드(https://haruple.tistory.com/162)  
+
+사용할 안드로이드 장치가 없는 경우,  
+안드로이드 스튜디오 프로젝트를 실행한 후 Tools - Device Manager 선택  
+Create device 선택 - 테스트용으로 사용된 Pixel 4 XL(이외의 장치도 무관함) 선택 후 next  
+oreo이후의 SDK만 지원하므로 API Level이 26 이상인 것 중에 하나를 선택해서 DownLoad클릭  
+설치된 버전을 선택하고 Next 클릭  
+Finish 클릭  
+
+이제 실행을 위해 오른쪽 상단의 app 오른쪽의 스피너를 클릭하여 방금 설치한 장치를 선택하고 바로 오른쪽의 Run 'app'(삼각형) 버튼 클릭  
+이제 장치에서 실행된 어플을 구동하면 됩니다.  
+(가상 장치의 경우, 한글 입력기를 따로 설치하여야하며, 한글 입력에 대한 버그가 많아 정상적인 테스트 진행이 어려우므로 실제 안드로이드 기기를 이용할 것을 적극 권장합니다. )  
