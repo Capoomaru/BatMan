@@ -20,8 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class TransactionSellTableHolder extends RecyclerView.ViewHolder {
-    EditText dateView, batNameView, sellPriceView, isCardView, carNumberView, carCategoryView, phoneNumberView;
-    ImageView minusButton;
+    private EditText dateView, batNameView, sellPriceView, isCardView, carNumberView, carCategoryView, phoneNumberView;
+    private ImageView minusButton;
 
     public TransactionSellTableHolder(@NonNull View itemView, ArrayList<ICallBackTextWatcher> callbackWatcherList, MinusClickListener minusClickListener) {
         super(itemView);
@@ -111,7 +111,6 @@ public class TransactionSellTableHolder extends RecyclerView.ViewHolder {
         phoneNumberView.setText(data.getPhoneNumber());
         if(getItemViewType() == 1) {
             minusButton.setVisibility(View.VISIBLE);
-            //dateView.setEnabled(true);
             batNameView.setEnabled(true);
             sellPriceView.setEnabled(true);
             isCardView.setEnabled(true);

@@ -81,6 +81,4 @@ public class StockTableHolder extends RecyclerView.ViewHolder {
             countView.setEnabled(true);
         }
     }
-
-    ArrayList<Integer> getRmList() { return rmList;}
 }

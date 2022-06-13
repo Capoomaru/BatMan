@@ -4,22 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="35dp"
-    android:weightSum="1.09"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="1.09">
 
     <EditText
         android:id="@+id/batName"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.6"
-        android:fontFamily="@font/lotte_mart_dream_bold"
         android:background="@drawable/rect_sellmode"
-        android:text="배터리명"
-        android:textSize="15dp"
-        android:textColor="#000000"
-        android:gravity="center"
         android:enabled="false"
-        >
+        android:fontFamily="@font/lotte_mart_dream_bold"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="배터리명"
+        android:inputType="text"
+        android:textColor="#000000"
+        android:textSize="15dp">
 
     </EditText>
 
@@ -33,7 +34,8 @@
         android:fontFamily="@font/lotte_mart_dream_bold"
         android:gravity="center"
         android:inputType="number"
-        android:text="@{@string/price_format(30000)}"
+        android:maxLines="1"
+        android:text=""
         android:textColor="#000000"
         android:textSize="15dp">
 
@@ -43,11 +45,10 @@
         android:id="@+id/minus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_weight="0.09"
         android:background="@drawable/ic_baseline_indeterminate_check_box_24"
-        android:layout_gravity="center"
-        android:visibility="invisible"
-        >
+        android:visibility="invisible">
 
     </ImageButton>
 

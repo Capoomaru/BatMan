@@ -75,42 +75,31 @@ public class TransactionTableFragment extends Fragment {
             recyclerView.setAdapter(purchaseTableAdapter);
         });
 
-        v.findViewById(R.id.modify).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = getActivity().getIntent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                if(!isStockView) {
-                    intent.putExtra("transactionSellList", transactionSellDataList);
-                    intent.putExtra("isSell", true);
+        v.findViewById(R.id.modify).setOnClickListener(v1 -> {
+            Intent intent = getActivity().getIntent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            if(!isStockView) {
+                intent.putExtra("transactionSellList", transactionSellDataList);
+                intent.putExtra("isSell", true);
 
-                }
-                else {
-                    intent.putExtra("transactionStockList", transactionStockDataList);
-                    intent.putExtra("isSell", false);
-                }
-                intent.setClass(getActivity(), TransactionTableModifyActivity.class);
-                startActivity(intent);
             }
+            else {
+                intent.putExtra("transactionStockList", transactionStockDataList);
+                intent.putExtra("isSell", false);
+            }
+            intent.setClass(getActivity(), TransactionTableModifyActivity.class);
+            startActivity(intent);
         });
 
-        v.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("onclick(): ","back");
-                AlertDialog.Builder msgBuilder = new AlertDialog.Builder(getActivity())
-                        .setTitle("모드 선택으로 돌아가기")
-                        .setMessage("모드 선택화면으로 돌아가시겠습니까?")
-                        .setPositiveButton("네", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                startActivity(SelectModeActivity.class);
-                            }
-                        })
-                        .setNegativeButton("아니요", new DialogInterface.OnClickListener(){@Override public void onClick(DialogInterface dialog, int which) { }});
-                msgBuilder.create();
-                msgBuilder.show();
-            }
+        v.findViewById(R.id.back).setOnClickListener(v1 -> {
+            Log.i("onclick(): ","back");
+            AlertDialog.Builder msgBuilder = new AlertDialog.Builder(getActivity())
+                    .setTitle("모드 선택으로 돌아가기")
+                    .setMessage("모드 선택화면으로 돌아가시겠습니까?")
+                    .setPositiveButton("네", (dialog, i) -> backToSelectMode(SelectModeActivity.class))
+                    .setNegativeButton("아니요", (dialog, which) -> { });
+            msgBuilder.create();
+            msgBuilder.show();
         });
 
         return v;
@@ -120,7 +109,14 @@ public class TransactionTableFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        getDataFromDB();
+
+    }
+
+    public void getDataFromDB() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        /* SellData */
         db.collection("Transaction").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("stock", false).addSnapshotListener((value, error) -> {
             if (error != null) {
                 Log.w("snapshot error:", error.getMessage());
@@ -143,6 +139,8 @@ public class TransactionTableFragment extends Fragment {
                 sellTableAdapter.notifyDataSetChanged();
             });
         });
+
+        /* StockData */
         db.collection("Transaction").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("stock", true).addSnapshotListener((value, error) -> {
             if (error != null) {
                 Log.w("snapshot error:", error.getMessage());
@@ -167,7 +165,7 @@ public class TransactionTableFragment extends Fragment {
         });
     }
 
-    private void startActivity(Class c) {
+    public void backToSelectMode(Class c) {
         Intent intent = new Intent(getActivity(), c);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

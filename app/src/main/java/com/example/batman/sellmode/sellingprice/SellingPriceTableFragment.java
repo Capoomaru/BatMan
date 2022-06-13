@@ -68,7 +68,7 @@ public class SellingPriceTableFragment extends Fragment {
         batteryList = new ArrayList<>();
 
         recyclerView = v.findViewById(R.id.rv_list);
-        SellingPriceTableAdapter sellingPriceTableAdapter = new SellingPriceTableAdapter(batteryList, 0);
+        SellingPriceTableAdapter sellingPriceTableAdapter = new SellingPriceTableAdapter(batteryList, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(sellingPriceTableAdapter);
 

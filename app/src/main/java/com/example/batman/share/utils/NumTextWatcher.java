@@ -11,9 +11,9 @@ import java.text.DecimalFormat;
 // https://devfunny.tistory.com/350
 
 public class NumTextWatcher implements TextWatcher {
-    String result = "";
-    DecimalFormat decimalFormat = new DecimalFormat("#,###");
-    EditText editText;
+    private String result = "";
+    private DecimalFormat decimalFormat = new DecimalFormat("#,###");
+    private EditText editText;
 
     public NumTextWatcher(EditText editText) {
         this.editText = editText;

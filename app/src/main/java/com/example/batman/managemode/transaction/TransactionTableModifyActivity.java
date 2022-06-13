@@ -22,6 +22,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class TransactionTableModifyActivity extends AppCompatActivity {
+    private boolean isSell;
+    private Intent intent;
+    private RecyclerView recyclerView;
+
+    private ArrayList<TransactionSellData> transactionSellDataList;
+    private ArrayList<TransactionStockData> transactionStockDataList;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +36,13 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
 
         findViewById(R.id.buttonPanel).setVisibility(View.INVISIBLE);
 
-        Intent intent = getIntent();
-        boolean isSell = intent.getBooleanExtra("isSell", false);
+        intent = getIntent();
+        isSell = intent.getBooleanExtra("isSell", false);
 
-        ArrayList<TransactionSellData> transactionSellDataList = isSell ? TransactionSellData.cloneList((ArrayList<TransactionSellData>) intent.getSerializableExtra("transactionSellList")) : null;
-        ArrayList<TransactionStockData> transactionStockDataList = isSell ? null : TransactionStockData.cloneList((ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionStockList"));
+        transactionSellDataList = isSell ? TransactionSellData.cloneList((ArrayList<TransactionSellData>) intent.getSerializableExtra("transactionSellList")) : null;
+        transactionStockDataList = isSell ? null : TransactionStockData.cloneList((ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionStockList"));
 
-        RecyclerView recyclerView = findViewById(R.id.rv_list);
+        recyclerView = findViewById(R.id.rv_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
         if (isSell) {
@@ -52,69 +59,11 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.modify)).setText("완료");
 
         findViewById(R.id.modify).setOnClickListener(v -> {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-
             AlertDialog.Builder msgBuilder = new AlertDialog.Builder(TransactionTableModifyActivity.this)
                     .setTitle("수정")
                     .setMessage("입력된 수정을 반영하시겠습니까?")
                     .setPositiveButton("네", (dialog, index) -> {
-                        ArrayList<TransactionSellData> originSellList;
-                        ArrayList<TransactionStockData> originPurchaseList;
-                        ArrayList<Integer> rmList;
-                        if (isSell) {
-                            originSellList = (ArrayList<TransactionSellData>) intent.getSerializableExtra("transactionSellList");
-                            rmList = ((TransactionSellTableAdapter) recyclerView.getAdapter()).getRmList();
-
-                            rmList.forEach(i -> {
-                                TransactionSellData data = originSellList.get(i);
-                                db.collection("Stock").document(data.getBatName()).get().addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot document = task.getResult();
-                                        int prev = Integer.parseInt(document.get("count").toString());
-                                        db.collection("Stock").document(data.getBatName()).update("count", prev + data.getCount());  //수량 복구
-                                        db.collection("Customer").document(data.getCarNumber() + data.getPhoneNumber())     //고객의 거래기록 삭제
-                                                .collection("TransactionList").document(data.getDate().toString()).delete();
-                                        db.collection("Transaction").document(data.getDate().toString()).delete(); //거래 기록 삭제
-                                        originSellList.remove(i);                                                          //비교 대상과 인덱스 동기화
-                                    }
-                                });
-                            });
-
-                            for (int i = 0; i < transactionSellDataList.size(); i++) {
-                                if (!transactionSellDataList.get(i).equals(originSellList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
-                                    TransactionSellData data = transactionSellDataList.get(i);
-                                    db.collection("Transaction").document(data.getDate().toString())
-                                            .set(transactionSellDataList.get(i));
-                                    db.collection("Customer").document(data.getCarNumber() + data.getPhoneNumber())
-                                            .collection("TransactionList").document(data.getDate().toString()).set(data);
-                                }
-                            }
-                        } else {
-                            originPurchaseList = (ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionPurchaseList");
-                            rmList = ((TransactionStockTableAdapter) recyclerView.getAdapter()).getRmList();
-
-                            rmList.forEach(i -> {
-                                TransactionStockData data = originPurchaseList.get(i);
-                                db.collection("Stock").document(data.getBatName()).get().addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot document = task.getResult();
-                                        int prev = Integer.parseInt(document.get("count").toString());
-                                        db.collection("Stock").document(data.getBatName()).update("count", prev - data.getCount());  //수량 복구
-
-                                        db.collection("Transaction").document(data.getDate().toString()).delete(); //거래 기록 삭제
-                                        originPurchaseList.remove(i);                                                          //비교 대상과 인덱스 동기화
-                                    }
-                                });
-                            });
-
-                            for (int i = 0; i < transactionStockDataList.size(); i++) {
-                                if (!transactionStockDataList.get(i).equals(originPurchaseList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
-                                    db.collection("Transaction").document(transactionStockDataList.get(i).getDate().toString())
-                                            .set(transactionStockDataList.get(i));
-                                }
-                            }
-
-                        }
+                        saveToDB();
                         finish();
                     })
                     .setNegativeButton("아니요", (dialog, which) -> finish());
@@ -122,6 +71,67 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
             msgBuilder.show();
         });
 
+    }
 
+    public void saveToDB() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        ArrayList<TransactionSellData> originSellList;
+        ArrayList<TransactionStockData> originPurchaseList;
+        ArrayList<Integer> rmList;
+        if (isSell) {
+            originSellList = (ArrayList<TransactionSellData>) intent.getSerializableExtra("transactionSellList");
+            rmList = ((TransactionSellTableAdapter) recyclerView.getAdapter()).getRmList();
+
+            rmList.forEach(i -> {
+                TransactionSellData data = originSellList.get(i);
+                db.collection("Stock").document(data.getBatName()).get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        int prev = Integer.parseInt(document.get("count").toString());
+                        db.collection("Stock").document(data.getBatName()).update("count", prev + data.getCount());  //수량 복구
+                        db.collection("Customer").document(data.getCarNumber() + data.getPhoneNumber())     //고객의 거래기록 삭제
+                                .collection("TransactionList").document(data.getDate().toString()).delete();
+                        db.collection("Transaction").document(data.getDate().toString()).delete(); //거래 기록 삭제
+                        originSellList.remove(i);                                                          //비교 대상과 인덱스 동기화
+                    }
+                });
+            });
+
+            for (int i = 0; i < transactionSellDataList.size(); i++) {
+                if (!transactionSellDataList.get(i).equals(originSellList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
+                    TransactionSellData data = transactionSellDataList.get(i);
+                    db.collection("Transaction").document(data.getDate().toString())
+                            .set(transactionSellDataList.get(i));
+                    db.collection("Customer").document(data.getCarNumber() + data.getPhoneNumber())
+                            .collection("TransactionList").document(data.getDate().toString()).set(data);
+                }
+            }
+        } else {
+            originPurchaseList = (ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionPurchaseList");
+            rmList = ((TransactionStockTableAdapter) recyclerView.getAdapter()).getRmList();
+
+            rmList.forEach(i -> {
+                TransactionStockData data = originPurchaseList.get(i);
+                db.collection("Stock").document(data.getBatName()).get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        int prev = Integer.parseInt(document.get("count").toString());
+                        db.collection("Stock").document(data.getBatName()).update("count", prev - data.getCount());  //수량 복구
+
+                        db.collection("Transaction").document(data.getDate().toString()).delete(); //거래 기록 삭제
+                        originPurchaseList.remove(i);                                                          //비교 대상과 인덱스 동기화
+                    }
+                });
+            });
+
+            for (int i = 0; i < transactionStockDataList.size(); i++) {
+                if (!transactionStockDataList.get(i).equals(originPurchaseList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
+                    db.collection("Transaction").document(transactionStockDataList.get(i).getDate().toString())
+                            .set(transactionStockDataList.get(i));
+                }
+            }
+
+        }
     }
 }

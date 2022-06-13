@@ -13,17 +13,20 @@ import com.example.batman.R;
 import com.example.batman.share.utils.ICallBackTextWatcher;
 import com.example.batman.share.utils.MinusClickListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceTableHolder> {
     private ArrayList<BatteryData> list;
-    private Context context;
-    private MinusClickListener minusClickListener;
-    private int viewType;
+    private boolean has_minus;
+    private ArrayList<Integer> rmList;
 
-    public SellingPriceTableAdapter(ArrayList<BatteryData> list, int viewType) {this.list = list; this.viewType = viewType; }
+    public SellingPriceTableAdapter(ArrayList<BatteryData> list, boolean has_minus) {
+        this.list = list;
+        this.has_minus = has_minus;
+        this.rmList = new ArrayList<>();
+    }
 
-    SellingPriceTableAdapter(ArrayList<BatteryData> list ) { this(list, 0); }
 
     @NonNull
     @Override
@@ -37,42 +40,39 @@ public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceT
         *   문제점) 리사이클러뷰에서 EditText의 값을 변경하고 스크롤하게 될 경우 변경된 뷰의 값이 실제 데이터(모델)에 업데이트되지 않아서 데이터 유실이 발생함
         *   해결책) 이를 방지하기위해 ITextWatcher interface를 구현하고 이를 넘겨줌으로써 컨트롤러에서 뷰의 값을 실제 데이터(모델)에 업데이트한다.
         *  */
-        ICallBackTextWatcher nameWatcher = new ICallBackTextWatcher() {
+        ICallBackTextWatcher nameWatcher = (position, s, start, before, count) -> list.get(position).setBatName(s.toString());
+        ICallBackTextWatcher priceWatcher = (position, s, start, before, count) -> {
 
-            @Override
-            public void onTextChanged(int position, CharSequence s, int start, int before, int count) {
-                list.get(position).setBatName(s.toString());
-            }
-        };
-        ICallBackTextWatcher priceWatcher = new ICallBackTextWatcher() {
-            @Override
-            public void onTextChanged(int position, CharSequence s, int start, int before, int count) {
-
-                if(s.toString().equals(""))
-                    list.get(position).setSellingPrice(0);
-                else
-                    list.get(position).setSellingPrice(Integer.parseInt(s.toString().replaceAll(",","")));
-            }
+            if(s.toString().equals(""))
+                list.get(position).setSellingPrice(0);
+            else
+                list.get(position).setSellingPrice(Integer.parseInt(s.toString().replaceAll(",","")));
         };
 
-        return new SellingPriceTableHolder(view, nameWatcher, priceWatcher);
-    }
+        MinusClickListener minusClickListener = (view1, position) -> {
+            rmList.add(position);
+            list.remove(position);
+            notifyItemRemoved(position);
+        };
 
-    @Override
-    public int getItemViewType(int position) {
-        return this.viewType;
+        return new SellingPriceTableHolder(view, nameWatcher, priceWatcher, minusClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SellingPriceTableHolder holder, int position) {
         holder.onBind(list.get(position));
-        holder.setMinusClickListener(minusClickListener);
+    }
 
-
+    @Override
+    public int getItemViewType(int position) {
+        return has_minus ? 1 : 0;
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+
+
+    public ArrayList<Integer> getRmList() {return rmList;}
 }

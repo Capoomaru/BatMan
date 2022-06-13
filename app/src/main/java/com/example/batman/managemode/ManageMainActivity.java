@@ -19,12 +19,14 @@ public class ManageMainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private StockTableFragment stockTableFragment;
     private TransactionTableFragment transactionTableFragment;
+    //private StatisticsFragment staticsFragment; //통계 탭 -> 미구현 //TODO : StaticsFragment 구현 필요
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_main);
         tabLayout = findViewById(R.id.bottomNaviManage);
+
         stockTableFragment = new StockTableFragment();
         addFragment(stockTableFragment);
 

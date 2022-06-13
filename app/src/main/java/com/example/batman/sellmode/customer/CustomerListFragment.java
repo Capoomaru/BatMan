@@ -32,11 +32,6 @@ import java.util.HashMap;
 
 public class CustomerListFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
     private int prevId;
 
     private RecyclerView recyclerView;
@@ -48,26 +43,10 @@ public class CustomerListFragment extends Fragment {
     private DateUtils dateUtils;
 
 
-    public CustomerListFragment() {
-        // Required empty public constructor
-    }
-
-    public static CustomerListFragment newInstance(String param1, String param2) {
-        CustomerListFragment fragment = new CustomerListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
         dateUtils = new DateUtils();
     }
 
@@ -99,74 +78,71 @@ public class CustomerListFragment extends Fragment {
 
         prevId = R.id.btn_today;
 
-        onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnMap.get(v.getId()).setChecked(true);
-                if (v.getId() != prevId) {
-                    btnMap.get(prevId).setChecked(false);
-                    switch (v.getId()) {
-                        case R.id.btn_today:
-                            searchPanel.setVisibility(View.INVISIBLE);
-                            dataList.clear();
-                            for(TransactionSellData data : originList) {
-                                if(data.getDate().after(dateUtils.getToday()) && data.getDate().before(dateUtils.getTomorrow()))
-                                    dataList.add(data);
-                            }
-                            recyclerView.getAdapter().notifyDataSetChanged();
+        onClickListener = v1 -> {
+            btnMap.get(v1.getId()).setChecked(true);
+            if (v1.getId() != prevId) {
+                btnMap.get(prevId).setChecked(false);
+                switch (v1.getId()) {
+                    case R.id.btn_today:
+                        searchPanel.setVisibility(View.INVISIBLE);
+                        dataList.clear();
+                        for(TransactionSellData data : originList) {
+                            if(data.getDate().after(dateUtils.getToday()) && data.getDate().before(dateUtils.getTomorrow()))
+                                dataList.add(data);
+                        }
+                        recyclerView.getAdapter().notifyDataSetChanged();
 
-                            break;
-                        case R.id.btn_week:
-                            searchPanel.setVisibility(View.INVISIBLE);
-                            dataList.clear();
-                            Log.w("week", dateUtils.getWeekStart().toString() + dateUtils.getWeekEnd().toString());
-                            for(TransactionSellData data : originList) {
-                                if(data.getDate().after(dateUtils.getWeekStart()) && data.getDate().before(dateUtils.getWeekEnd()))
-                                    dataList.add(data);
-                            }
-                            recyclerView.getAdapter().notifyDataSetChanged();
-                            break;
-                        case R.id.btn_month:
-                            searchPanel.setVisibility(View.INVISIBLE);
-                            dataList.clear();
-                            for(TransactionSellData data : originList) {
-                                if(data.getDate().after(dateUtils.getMonthStart()) && data.getDate().before(dateUtils.getMonthEnd()))
-                                    dataList.add(data);
-                            }
-                            recyclerView.getAdapter().notifyDataSetChanged();
-                            break;
-                        case R.id.btn_search:
-                            searchPanel.setVisibility(View.VISIBLE);
-                            dataList.clear();
-                            recyclerView.getAdapter().notifyDataSetChanged();
-                            searchView.setOnKeyListener((v1, keyCode, event) -> {
-                                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                                String searchData;
-                                switch (keyCode) {
-                                    case KeyEvent.KEYCODE_ENTER: //엔터키 눌렸을 때
-                                        if (searchView.getText().length() == 0) {
-                                            break;
-                                        }
-                                        //입력글자 깨짐현상 - google 입력기에서 문제생김 //https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=wnwogh88&logNo=220462603648
-
-                                        searchData = searchView.getText().toString().trim();//검색한거 스트링으로 저장
-
-                                        searchView.clearFocus();//엔터키 누르면 커서 제거
-                                        imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0); //키보드 내려줌.
-
-                                        searching(searchData);
-                                        recyclerView.getAdapter().notifyDataSetChanged();
-
+                        break;
+                    case R.id.btn_week:
+                        searchPanel.setVisibility(View.INVISIBLE);
+                        dataList.clear();
+                        Log.w("week", dateUtils.getWeekStart().toString() + dateUtils.getWeekEnd().toString());
+                        for(TransactionSellData data : originList) {
+                            if(data.getDate().after(dateUtils.getWeekStart()) && data.getDate().before(dateUtils.getWeekEnd()))
+                                dataList.add(data);
+                        }
+                        recyclerView.getAdapter().notifyDataSetChanged();
+                        break;
+                    case R.id.btn_month:
+                        searchPanel.setVisibility(View.INVISIBLE);
+                        dataList.clear();
+                        for(TransactionSellData data : originList) {
+                            if(data.getDate().after(dateUtils.getMonthStart()) && data.getDate().before(dateUtils.getMonthEnd()))
+                                dataList.add(data);
+                        }
+                        recyclerView.getAdapter().notifyDataSetChanged();
+                        break;
+                    case R.id.btn_search:
+                        searchPanel.setVisibility(View.VISIBLE);
+                        dataList.clear();
+                        recyclerView.getAdapter().notifyDataSetChanged();
+                        searchView.setOnKeyListener((v2, keyCode, event) -> {
+                            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            String searchData;
+                            switch (keyCode) {
+                                case KeyEvent.KEYCODE_ENTER: //엔터키 눌렸을 때
+                                    if (searchView.getText().length() == 0) {
                                         break;
-                                    default:
-                                        return false;
-                                }
-                                return true;
-                            });
-                            break;
-                    }
-                    prevId = v.getId();
+                                    }
+                                    //입력글자 깨짐현상 - google 입력기에서 문제생김 //https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=wnwogh88&logNo=220462603648
+
+                                    searchData = searchView.getText().toString().trim();//검색한거 스트링으로 저장
+
+                                    searchView.clearFocus();//엔터키 누르면 커서 제거
+                                    imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0); //키보드 내려줌.
+
+                                    searchCustomer(searchData);
+                                    recyclerView.getAdapter().notifyDataSetChanged();
+
+                                    break;
+                                default:
+                                    return false;
+                            }
+                            return true;
+                        });
+                        break;
                 }
+                prevId = v1.getId();
             }
         };
 
@@ -234,13 +210,13 @@ public class CustomerListFragment extends Fragment {
         startActivity(intent);
     }
 
-    public void searching(String search) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    public void searchCustomer(String findString) {
         dataList.clear();
+        findString.replaceAll("-","");
+
         for (TransactionSellData data : originList) {
-            if (data.getCarNumber().matches(".*" + search + ".*") && data.getCarCategory().matches(".*" + search + ".*")
-                    && data.getPhoneNumber().replaceAll("-", "").matches(".*" + search + ".*"))
+            if (data.getCarNumber().matches(".*" + findString + ".*") || data.getCarCategory().matches(".*" + findString + ".*")
+                    || data.getPhoneNumber().replaceAll("-", "").matches(".*" + findString + ".*"))
                 dataList.add(data);
         }
     }

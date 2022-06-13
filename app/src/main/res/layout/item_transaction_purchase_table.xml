@@ -29,12 +29,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.3"
                 android:background="@drawable/rect_sellmode"
+                android:enabled="false"
                 android:fontFamily="@font/lotte_mart_dream_bold"
                 android:gravity="center"
                 android:text="날짜"
                 android:textColor="#000000"
-                android:textSize="15dp"
-                android:enabled="false">
+                android:textSize="15dp">
 
             </EditText>
 
@@ -44,12 +44,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:background="@drawable/rect_sellmode"
+                android:enabled="false"
                 android:fontFamily="@font/lotte_mart_dream_bold"
                 android:gravity="center"
+                android:inputType="text"
+                android:maxLines="1"
                 android:text="배터리명"
                 android:textColor="#000000"
-                android:textSize="15dp"
-                android:enabled="false">
+                android:textSize="15dp">
 
             </EditText>
 
@@ -59,12 +61,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.28"
                 android:background="@drawable/rect_managemode"
+                android:enabled="false"
                 android:fontFamily="@font/lotte_mart_dream_bold"
                 android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
                 android:text="매입가"
                 android:textColor="#000000"
-                android:textSize="15dp"
-                android:enabled="false">
+                android:textSize="15dp">
 
             </EditText>
 
@@ -74,12 +78,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.17"
                 android:background="@drawable/rect_sellmode"
+                android:enabled="false"
                 android:fontFamily="@font/lotte_mart_dream_bold"
                 android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
                 android:text="수량"
                 android:textColor="#000000"
-                android:textSize="15dp"
-                android:enabled="false">
+                android:textSize="15dp">
 
             </EditText>
 

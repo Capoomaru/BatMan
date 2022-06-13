@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,8 +11,7 @@
         android:id="@+id/bottomNaviSell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabSelectedTextColor="@color/main_color"
-        app:tabIndicatorColor="@color/main_color"
+        android:background="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,18 +19,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/menu_manage"
-        android:background="#ffffff">
+        app:tabIndicatorColor="@color/main_color"
+        app:tabSelectedTextColor="@color/main_color">
 
         <com.google.android.material.tabs.TabItem
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="판매 가격표"
-            />
+            android:layout_height="wrap_content"
+            android:text="판매 가격표" />
+
         <com.google.android.material.tabs.TabItem
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="고객정보"
-            />
+            android:layout_height="wrap_content"
+            android:text="고객정보" />
 
 
     </com.google.android.material.tabs.TabLayout>

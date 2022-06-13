@@ -33,20 +33,12 @@ public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.item_stock_table, parent, false);
 
-        ICallBackTextWatcher nameWatcher = new ICallBackTextWatcher() {
-            @Override
-            public void onTextChanged(int position, CharSequence s, int start, int before, int count) {
-                list.get(position).setBatName(s.toString());
-            }
-        };
-        ICallBackTextWatcher priceWatcher = new ICallBackTextWatcher() {
-            @Override
-            public void onTextChanged(int position, CharSequence s, int start, int before, int count) {
-                if(s.toString().equals(""))
-                    list.get(position).setPurchasePrice(0);
-                else
-                    list.get(position).setPurchasePrice(Integer.parseInt(s.toString().replaceAll(",","")));
-            }
+        ICallBackTextWatcher nameWatcher = (position, s, start, before, count) -> list.get(position).setBatName(s.toString());
+        ICallBackTextWatcher priceWatcher = (position, s, start, before, count) -> {
+            if(s.toString().equals(""))
+                list.get(position).setPurchasePrice(0);
+            else
+                list.get(position).setPurchasePrice(Integer.parseInt(s.toString().replaceAll(",","")));
         };
         ICallBackTextWatcher countWatcher = (position, s, start, before, count) -> {
             if(s.toString().equals(""))

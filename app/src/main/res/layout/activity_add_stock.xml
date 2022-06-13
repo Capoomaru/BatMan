@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,11 +12,12 @@
         android:layout_height="40dp"
         android:background="#ffffff"
         app:layout_constraintTop_toTopOf="parent">
+
         <View
             android:id="@+id/back"
-            android:layout_marginLeft="13dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginLeft="13dp"
             android:background="@drawable/ic_baseline_chevron_left_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,13 +31,13 @@
             android:id="@+id/complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
             android:fontFamily="@font/lotte_mart_dream_bold"
-            android:text="완료"
             android:gravity="center_horizontal"
+            android:text="완료"
             android:textColor="#000000"
             android:textSize="15sp"
             android:textStyle="normal"
-            android:layout_marginEnd="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,14 +59,13 @@
             android:id="@+id/batNameView"
             android:layout_width="78dp"
             android:layout_height="match_parent"
-            android:text="배터리명"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:gravity="center"
-            android:textAlignment="center"
             android:layout_marginLeft="41dp"
-            app:layout_constraintStart_toStartOf="parent">
-        </TextView>
+            android:gravity="center"
+            android:text="배터리명"
+            android:textAlignment="center"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"></TextView>
 
         <EditText
             android:id="@+id/batName"
@@ -74,10 +73,10 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="25dp"
             android:background="@drawable/ic_input_box"
-            android:text=""
-            android:maxLines="1"
-            android:inputType="text"
             android:gravity="center"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text=""
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/batNameView">
 
@@ -98,14 +97,13 @@
             android:id="@+id/purchasePriceView"
             android:layout_width="78dp"
             android:layout_height="match_parent"
-            android:text="매 입 가"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:gravity="center"
-            android:textAlignment="center"
             android:layout_marginLeft="41dp"
-            app:layout_constraintStart_toStartOf="parent">
-        </TextView>
+            android:gravity="center"
+            android:text="매 입 가"
+            android:textAlignment="center"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"></TextView>
 
         <EditText
             android:id="@+id/purchasePrice"
@@ -113,9 +111,9 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="25dp"
             android:background="@drawable/ic_input_box"
+            android:gravity="center"
             android:inputType="number"
             android:text="0"
-            android:gravity="center"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/purchasePriceView">
 
@@ -136,14 +134,13 @@
             android:id="@+id/sellingPriceView"
             android:layout_width="78dp"
             android:layout_height="match_parent"
-            android:text="판 매 가"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:gravity="center"
-            android:textAlignment="center"
             android:layout_marginLeft="41dp"
-            app:layout_constraintStart_toStartOf="parent">
-        </TextView>
+            android:gravity="center"
+            android:text="판 매 가"
+            android:textAlignment="center"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"></TextView>
 
         <EditText
             android:id="@+id/sellingPrice"
@@ -151,9 +148,9 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="25dp"
             android:background="@drawable/ic_input_box"
+            android:gravity="center"
             android:inputType="number"
             android:text="0"
-            android:gravity="center"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/sellingPriceView">
 

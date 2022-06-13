@@ -17,20 +17,26 @@ import com.example.batman.share.utils.ICallBackTextWatcher;
 import com.example.batman.share.utils.MinusClickListener;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
-    EditText batNameView;
-    EditText sellingPriceView;
-    ImageView minusButton;
-    MinusClickListener minusClickListener;
-    ICallBackTextWatcher nameWatcher, priceWatcher;
+    protected EditText batNameView;
+    protected EditText sellingPriceView;
+    protected ImageView minusButton;
+    protected ICallBackTextWatcher nameWatcher, priceWatcher;
+    protected ArrayList<Integer> rmList;
 
-    public SellingPriceTableHolder(@NonNull View itemView, ICallBackTextWatcher nameWatcher, ICallBackTextWatcher priceWatcher) {
+    public SellingPriceTableHolder(@NonNull View itemView, ICallBackTextWatcher nameWatcher, ICallBackTextWatcher priceWatcher, MinusClickListener minusClickListener) {
         super(itemView);
         batNameView = itemView.findViewById(R.id.batName);
         sellingPriceView = itemView.findViewById(R.id.selling_price);
         minusButton = itemView.findViewById(R.id.minus);
         minusButton.setOnClickListener(view -> Log.w("onclick(minus) :",getAdapterPosition()+"minus"));
+
+        rmList = new ArrayList<>();
+        minusButton.setOnClickListener(v -> {
+            rmList.add(getAdapterPosition());
+        });
 
         this.nameWatcher = nameWatcher;
         this.priceWatcher = priceWatcher;
@@ -81,17 +87,11 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
         DecimalFormat format = new DecimalFormat("#,###");
 
         batNameView.setText(batteryData.getBatName());
-        //sellingPriceView.setText(Integer.toString(batteryData.getSellingPrice()));
         sellingPriceView.setText(format.format(batteryData.getSellingPrice()));
         if(getItemViewType() == 1) {
             minusButton.setVisibility(View.VISIBLE);
             batNameView.setEnabled(true);
             sellingPriceView.setEnabled(true);
         }
-
-    }
-
-    void setMinusClickListener(MinusClickListener minusClickListener) {
-        this.minusClickListener = minusClickListener;
     }
 }

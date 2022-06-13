@@ -4,10 +4,11 @@ import android.text.Editable;
 import android.widget.EditText;
 
 public class TransactionNumTextWatcher extends NumTextWatcher{
-    EditText operand, target;
+    private EditText editText, operand, target;
 
     public TransactionNumTextWatcher(EditText editText, EditText operand, EditText target) {
         super(editText);
+        this.editText = editText;
         this.operand = operand;
         this.target = target;
     }

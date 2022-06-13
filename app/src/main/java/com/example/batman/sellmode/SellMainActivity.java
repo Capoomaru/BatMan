@@ -16,9 +16,9 @@ import java.util.List;
 
 public class SellMainActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
-    SellingPriceTableFragment sellingPriceTableFragment;
-    CustomerListFragment customerListFragment;
+    private TabLayout tabLayout;
+    private SellingPriceTableFragment sellingPriceTableFragment;
+    private CustomerListFragment customerListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

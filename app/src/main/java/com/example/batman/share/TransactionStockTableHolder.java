@@ -19,8 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class TransactionStockTableHolder extends RecyclerView.ViewHolder {
-    EditText dateView, batNameView, purchasePriceView, countView;
-    ImageView minusButton;
+    private EditText dateView, batNameView, purchasePriceView, countView;
+    private ImageView minusButton;
 
     public TransactionStockTableHolder(@NonNull View itemView, ArrayList<ICallBackTextWatcher> callbackWatcherList, MinusClickListener minusClickListener) {
         super(itemView);
@@ -66,7 +66,6 @@ public class TransactionStockTableHolder extends RecyclerView.ViewHolder {
         countView.setText(""+data.getCount());
         if(getItemViewType() == 1) {
             minusButton.setVisibility(View.VISIBLE);
-            //dateView.setEnabled(true);
             batNameView.setEnabled(true);
             purchasePriceView.setEnabled(true);
             countView.setEnabled(true);

@@ -29,7 +29,7 @@ public class SellingPriceTableModifyActivity extends AppCompatActivity {
         ArrayList<BatteryData> batteryList = BatteryData.cloneList((ArrayList<BatteryData>) intent.getSerializableExtra("batteryList"));
 
         RecyclerView recyclerView = findViewById(R.id.rv_list);
-        SellingPriceTableAdapter sellingPriceTableAdapter = new SellingPriceTableAdapter(batteryList, 1);
+        SellingPriceTableAdapter sellingPriceTableAdapter = new SellingPriceTableAdapter(batteryList, true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(sellingPriceTableAdapter);
 
