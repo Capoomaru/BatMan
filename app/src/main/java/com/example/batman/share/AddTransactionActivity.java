@@ -201,8 +201,8 @@ public class AddTransactionActivity extends AppCompatActivity {
         int year = (int) yearSpinner.getSelectedItem();
         int month = (int) monthSpinner.getSelectedItem();
         int day = (int) daySpinner.getSelectedItem();
-        Calendar date = new Calendar.Builder().setDate(year, month, day).build();
-        if (date.equals(dateUtils.getToday()))
+        Calendar date = new Calendar.Builder().setDate(year, month-1, day).build();
+        if (DateUtils.todayEquals(date))
             date = Calendar.getInstance();  //오늘 날짜면, 현재 시간까지 입력
 
         int price = Integer.parseInt(priceText.getText().toString().replaceAll(",", ""));

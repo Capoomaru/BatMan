@@ -85,7 +85,7 @@ public class StockTableModifyActivity extends AppCompatActivity {
                             db.collection("Stock").document(batteryList.get(i).getBatName())
                                     .set(batteryList.get(i));
                             db.collection("Stock").document(batteryList.get(i).getBatName())
-                                    .update("LastUpdate", new Date(System.currentTimeMillis()));
+                                    .update("lastUpdate", new Date(System.currentTimeMillis()));
                         }
                     }
                     finish();

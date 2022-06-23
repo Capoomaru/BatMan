@@ -1,5 +1,7 @@
 package com.example.batman.share.utils;
 
+import android.util.Log;
+
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -13,6 +15,8 @@ public class DateUtils {
     public DateUtils() {
         Calendar calendar = Calendar.getInstance();
         today = new Calendar.Builder().setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).build().getTime();
+        Log.w("date today", ""+today);
+        Log.w("date today", ""+new Date(System.currentTimeMillis()));
         Calendar calendarCalc = new Calendar.Builder().setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).build();
         calendarCalc.set(Calendar.DATE, calendarCalc.get(Calendar.DATE) + 1);
         tomorrow = calendarCalc.getTime();
@@ -64,6 +68,14 @@ public class DateUtils {
 
     public Date getYearEnd() {
         return yearEnd;
+    }
+
+    public static boolean todayEquals(Calendar c1) {
+        Calendar today = Calendar.getInstance();
+        if(c1.get(Calendar.YEAR) != today.get(Calendar.YEAR)) return false;
+        if(c1.get(Calendar.MONTH) != today.get(Calendar.MONTH)) return false;
+        if(c1.get(Calendar.DATE) != today.get(Calendar.DATE)) return false;
+        return true;
     }
 
 }

@@ -91,7 +91,7 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         ArrayList<TransactionSellData> originSellList;
-        ArrayList<TransactionStockData> originPurchaseList;
+        ArrayList<TransactionStockData> originStockList;
         ArrayList<Integer> rmList;
         if (isSell) {
             originSellList = (ArrayList<TransactionSellData>) intent.getSerializableExtra("transactionSellList");
@@ -131,11 +131,11 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
                 }
             }
         } else {
-            originPurchaseList = (ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionPurchaseList");
+            originStockList = (ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionStockList");
             rmList = ((TransactionStockTableAdapter) recyclerView.getAdapter()).getRmList();
 
             rmList.forEach(i -> {
-                TransactionStockData data = originPurchaseList.get(i);
+                TransactionStockData data = originStockList.get(i);
                 db.collection("Stock").document(data.getBatName()).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
@@ -143,13 +143,13 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
                         db.collection("Stock").document(data.getBatName()).update("count", prev - data.getCount());  //수량 복구
 
                         db.collection("Transaction").document(data.getDate().toString()).delete(); //거래 기록 삭제
-                        originPurchaseList.remove(i);                                                          //비교 대상과 인덱스 동기화
+                        originStockList.remove(i);                                                          //비교 대상과 인덱스 동기화
                     }
                 });
             });
 
             for (int i = 0; i < transactionStockDataList.size(); i++) {
-                if (!transactionStockDataList.get(i).equals(originPurchaseList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
+                if (!transactionStockDataList.get(i).equals(originStockList.get(i))) {    //삭제 대상이 아니면서 수정되었으면
                     db.collection("Transaction").document(transactionStockDataList.get(i).getDate().toString())
                             .set(transactionStockDataList.get(i));
                 }
