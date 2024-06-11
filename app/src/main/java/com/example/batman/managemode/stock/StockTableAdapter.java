@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.db.BatteryData;
 import com.example.batman.R;
+import com.example.batman.db.BatteryData;
 import com.example.batman.share.utils.ICallBackTextWatcher;
 import com.example.batman.share.utils.MinusClickListener;
 
@@ -17,13 +17,13 @@ import java.util.ArrayList;
 
 public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
     protected ArrayList<BatteryData> list;
-    private boolean has_minus;
-    private ArrayList<Integer> rmList;
+    private boolean hasMinus;
+    private ArrayList<Integer> removeList;
 
-    public StockTableAdapter(ArrayList<BatteryData> list, boolean has_minus) {
+    public StockTableAdapter(ArrayList<BatteryData> list, boolean hasMinus) {
         this.list = list;
-        this.has_minus = has_minus;
-        this.rmList = new ArrayList<>();
+        this.hasMinus = hasMinus;
+        this.removeList = new ArrayList<>();
     }
 
     @NonNull
@@ -47,12 +47,12 @@ public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
                 list.get(position).setCount(Integer.parseInt(s.toString().replaceAll(",", "")));
         };
         MinusClickListener minusClickListener = (view1, position) -> {
-            rmList.add(position);
+            removeList.add(position);
             list.remove(position);
             notifyItemRemoved(position);
         };
 
-        if (has_minus)
+        if (hasMinus)
             view.findViewById(R.id.minus).setVisibility(View.VISIBLE);
         return new StockTableHolder(view, nameWatcher, priceWatcher, countWatcher, minusClickListener);
     }
@@ -64,7 +64,7 @@ public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return has_minus ? 1 : 0;
+        return hasMinus ? 1 : 0;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class StockTableAdapter extends RecyclerView.Adapter<StockTableHolder> {
         return list.size();
     }
 
-    public ArrayList<Integer> getRmList() {
-        return rmList;
+    public ArrayList<Integer> getRemoveList() {
+        return removeList;
     }
 }

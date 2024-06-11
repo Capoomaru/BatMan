@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.share.AddStockActivity;
-import com.example.batman.db.BatteryData;
 import com.example.batman.R;
+import com.example.batman.db.BatteryData;
+import com.example.batman.share.AddStockActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -70,9 +70,9 @@ public class StockTableModifyActivity extends AppCompatActivity {
                 .setTitle("수정")
                 .setMessage("입력된 수정을 반영하시겠습니까?")
                 .setPositiveButton("네", (dialog, index) -> {
-                    ArrayList<Integer> rmList = sellingPriceTableAdapter.getRmList();
+                    ArrayList<Integer> removeList = sellingPriceTableAdapter.getRemoveList();
 
-                    rmList.forEach(i -> {
+                    removeList.forEach(i -> {
                         db.collection("Stock").document(originList.get(i).getBatName()).delete(); //삭제 하고
                         originList.remove(i);                                                                 //비교 대상과 인덱스 동기화화
                     });

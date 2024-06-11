@@ -8,22 +8,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.db.TransactionStockData;
 import com.example.batman.R;
+import com.example.batman.db.TransactionStockData;
 import com.example.batman.share.utils.ICallBackTextWatcher;
 import com.example.batman.share.utils.MinusClickListener;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 public class TransactionStockTableAdapter extends RecyclerView.Adapter<TransactionStockTableHolder> {
     protected ArrayList<TransactionStockData> list;
-    private boolean has_minus;
-    private ArrayList<Integer> rmList;
+    private boolean hasMinus;
+    @Getter
+    private ArrayList<Integer> removeList;
 
-    public TransactionStockTableAdapter(ArrayList<TransactionStockData> list, boolean has_minus) {
+    public TransactionStockTableAdapter(ArrayList<TransactionStockData> list, boolean hasMinus) {
         this.list = list;
-        this.has_minus = has_minus;
-        this.rmList = new ArrayList<>();
+        this.hasMinus = hasMinus;
+        this.removeList = new ArrayList<>();
     }
 
     @NonNull
@@ -48,7 +51,7 @@ public class TransactionStockTableAdapter extends RecyclerView.Adapter<Transacti
                 list.get(position).setCount(Integer.parseInt(s.toString().replaceAll(",", "")));
         });
         MinusClickListener minusClickListener = (view1, position) -> {
-            rmList.add(position);
+            removeList.add(position);
             list.remove(position);
             notifyItemRemoved(position);
         };
@@ -63,7 +66,7 @@ public class TransactionStockTableAdapter extends RecyclerView.Adapter<Transacti
 
     @Override
     public int getItemViewType(int position) {
-        return has_minus ? 1 : 0;
+        return hasMinus ? 1 : 0;
     }
 
     @Override
@@ -71,7 +74,4 @@ public class TransactionStockTableAdapter extends RecyclerView.Adapter<Transacti
         return list.size();
     }
 
-    public ArrayList<Integer> getRmList() {
-        return rmList;
-    }
 }

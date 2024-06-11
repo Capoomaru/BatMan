@@ -8,22 +8,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
+import com.example.batman.db.TransactionSellData;
 import com.example.batman.share.utils.ICallBackTextWatcher;
 import com.example.batman.share.utils.MinusClickListener;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 public class TransactionSellTableAdapter extends RecyclerView.Adapter<TransactionSellTableHolder> {
     protected ArrayList<TransactionSellData> list;
-    private boolean has_minus;
-    private ArrayList<Integer> rmList;
+    private boolean hasMinus;
+    @Getter
+    private ArrayList<Integer> removeList;
 
-    public TransactionSellTableAdapter(ArrayList<TransactionSellData> list, boolean has_minus) {
+    public TransactionSellTableAdapter(ArrayList<TransactionSellData> list, boolean hasMinus) {
         this.list = list;
-        this.has_minus = has_minus;
-        this.rmList = new ArrayList<>();
+        this.hasMinus = hasMinus;
+        this.removeList = new ArrayList<>();
     }
 
     @NonNull
@@ -47,7 +50,7 @@ public class TransactionSellTableAdapter extends RecyclerView.Adapter<Transactio
         callbackWatcherList.add((position, s, start, before, count) -> list.get(position).setPhoneNumber(s.toString()));
 
         MinusClickListener minusClickListener = (view1, position) -> {
-            rmList.add(position);
+            removeList.add(position);
             list.remove(position);
             notifyItemRemoved(position);
         };
@@ -62,7 +65,7 @@ public class TransactionSellTableAdapter extends RecyclerView.Adapter<Transactio
 
     @Override
     public int getItemViewType(int position) {
-        return has_minus ? 1 : 0;
+        return hasMinus ? 1 : 0;
     }
 
     @Override
@@ -70,7 +73,4 @@ public class TransactionSellTableAdapter extends RecyclerView.Adapter<Transactio
         return list.size();
     }
 
-    public ArrayList<Integer> getRmList() {
-        return rmList;
-    }
 }

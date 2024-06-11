@@ -1,10 +1,10 @@
 package com.example.batman.selectmode;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.batman.R;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,13 +25,13 @@ public class SelectModeActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.setFirestoreSettings(settings);
 
-        TextView text_sell_mode = findViewById(R.id.sell_mode);
-        TextView text_manage_mode = findViewById(R.id.manage_mode);
+        TextView sellModeTextView = findViewById(R.id.sell_mode);
+        TextView manageModeTextView = findViewById(R.id.manage_mode);
 
         modeClickListener = new ModeClickListener(this);
 
-        text_sell_mode.setOnClickListener(modeClickListener);
-        text_manage_mode.setOnClickListener(modeClickListener);
+        sellModeTextView.setOnClickListener(modeClickListener);
+        manageModeTextView.setOnClickListener(modeClickListener);
     }
 
     public void startActivity(Class c) {

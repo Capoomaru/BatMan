@@ -2,12 +2,14 @@ package com.example.batman.share.utils;
 
 import android.util.Log;
 
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.Date;
 
+import lombok.Getter;
+
+@Getter
 public class DateUtils {
 
     private final Date today, tomorrow, weekStart, weekEnd, monthStart, monthEnd, yearStart, yearEnd;
@@ -15,8 +17,8 @@ public class DateUtils {
     public DateUtils() {
         Calendar calendar = Calendar.getInstance();
         today = new Calendar.Builder().setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).build().getTime();
-        Log.w("date today", ""+today);
-        Log.w("date today", ""+new Date(System.currentTimeMillis()));
+        Log.w("date today", "" + today);
+        Log.w("date today", "" + new Date(System.currentTimeMillis()));
         Calendar calendarCalc = new Calendar.Builder().setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).build();
         calendarCalc.set(Calendar.DATE, calendarCalc.get(Calendar.DATE) + 1);
         tomorrow = calendarCalc.getTime();
@@ -38,43 +40,11 @@ public class DateUtils {
         yearEnd = calendarCalc.getTime();
     }
 
-    public Date getToday() {
-        return today;
-    }
-
-    public Date getTomorrow() {
-        return tomorrow;
-    }
-
-    public Date getWeekStart() {
-        return weekStart;
-    }
-
-    public Date getWeekEnd() {
-        return weekEnd;
-    }
-
-    public Date getMonthStart() {
-        return monthStart;
-    }
-
-    public Date getMonthEnd() {
-        return monthEnd;
-    }
-
-    public Date getYearStart() {
-        return yearStart;
-    }
-
-    public Date getYearEnd() {
-        return yearEnd;
-    }
-
     public static boolean todayEquals(Calendar c1) {
         Calendar today = Calendar.getInstance();
-        if(c1.get(Calendar.YEAR) != today.get(Calendar.YEAR)) return false;
-        if(c1.get(Calendar.MONTH) != today.get(Calendar.MONTH)) return false;
-        if(c1.get(Calendar.DATE) != today.get(Calendar.DATE)) return false;
+        if (c1.get(Calendar.YEAR) != today.get(Calendar.YEAR)) return false;
+        if (c1.get(Calendar.MONTH) != today.get(Calendar.MONTH)) return false;
+        if (c1.get(Calendar.DATE) != today.get(Calendar.DATE)) return false;
         return true;
     }
 

@@ -1,18 +1,18 @@
 package com.example.batman.sellmode.sellingprice;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.example.batman.share.AddStockActivity;
-import com.example.batman.db.BatteryData;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.batman.R;
+import com.example.batman.db.BatteryData;
+import com.example.batman.share.AddStockActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -72,9 +72,9 @@ public class SellingPriceTableModifyActivity extends AppCompatActivity {
         ArrayList<BatteryData> originList = (ArrayList<BatteryData>) intent.getSerializableExtra("batteryList");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        ArrayList<Integer> rmList = sellingPriceTableAdapter.getRmList();
+        ArrayList<Integer> removeList = sellingPriceTableAdapter.getRemoveList();
 
-        rmList.forEach(i -> {
+        removeList.forEach(i -> {
             db.collection("Stock").document(originList.get(i).getBatName()).delete(); //삭제 하고
             originList.remove(i);                                                                 //비교 대상과 인덱스 동기화화
         });

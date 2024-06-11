@@ -8,23 +8,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.db.BatteryData;
 import com.example.batman.R;
+import com.example.batman.db.BatteryData;
 import com.example.batman.share.utils.ICallBackTextWatcher;
 import com.example.batman.share.utils.MinusClickListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import lombok.Getter;
 
 public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceTableHolder> {
     private ArrayList<BatteryData> list;
-    private boolean has_minus;
-    private ArrayList<Integer> rmList;
+    private boolean hasMinus;
+    @Getter
+    private ArrayList<Integer> removeList;
 
-    public SellingPriceTableAdapter(ArrayList<BatteryData> list, boolean has_minus) {
+    public SellingPriceTableAdapter(ArrayList<BatteryData> list, boolean hasMinus) {
         this.list = list;
-        this.has_minus = has_minus;
-        this.rmList = new ArrayList<>();
+        this.hasMinus = hasMinus;
+        this.removeList = new ArrayList<>();
     }
 
 
@@ -50,7 +52,7 @@ public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceT
         };
 
         MinusClickListener minusClickListener = (view1, position) -> {
-            rmList.add(position);
+            removeList.add(position);
             list.remove(position);
             notifyItemRemoved(position);
         };
@@ -65,7 +67,7 @@ public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceT
 
     @Override
     public int getItemViewType(int position) {
-        return has_minus ? 1 : 0;
+        return hasMinus ? 1 : 0;
     }
 
     @Override
@@ -74,7 +76,4 @@ public class SellingPriceTableAdapter extends RecyclerView.Adapter<SellingPriceT
     }
 
 
-    public ArrayList<Integer> getRmList() {
-        return rmList;
-    }
 }

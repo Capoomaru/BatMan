@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.db.BatteryData;
 import com.example.batman.R;
+import com.example.batman.db.BatteryData;
 import com.example.batman.share.utils.ICallBackTextWatcher;
 import com.example.batman.share.utils.MinusClickListener;
 
@@ -24,7 +24,7 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
     protected EditText sellingPriceView;
     protected ImageView minusButton;
     protected ICallBackTextWatcher nameWatcher, priceWatcher;
-    protected ArrayList<Integer> rmList;
+    protected ArrayList<Integer> removeList;
 
     public SellingPriceTableHolder(@NonNull View itemView, ICallBackTextWatcher nameWatcher, ICallBackTextWatcher priceWatcher, MinusClickListener minusClickListener) {
         super(itemView);
@@ -33,9 +33,9 @@ public class SellingPriceTableHolder extends RecyclerView.ViewHolder {
         minusButton = itemView.findViewById(R.id.minus);
         minusButton.setOnClickListener(view -> Log.w("onclick(minus) :", getAdapterPosition() + "minus"));
 
-        rmList = new ArrayList<>();
+        removeList = new ArrayList<>();
         minusButton.setOnClickListener(v -> {
-            rmList.add(getAdapterPosition());
+            removeList.add(getAdapterPosition());
         });
 
         this.nameWatcher = nameWatcher;

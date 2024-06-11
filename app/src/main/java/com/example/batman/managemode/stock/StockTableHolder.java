@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.db.BatteryData;
 import com.example.batman.R;
+import com.example.batman.db.BatteryData;
 import com.example.batman.share.utils.ICallBackTextWatcher;
 import com.example.batman.share.utils.MinusClickListener;
 import com.example.batman.share.utils.NumTextWatcher;
@@ -23,7 +23,7 @@ public class StockTableHolder extends RecyclerView.ViewHolder {
     protected EditText purchasePriceView;
     protected EditText countView;
     protected ImageView minusButton;
-    protected ArrayList<Integer> rmList;
+    protected ArrayList<Integer> removeList;
 
     public StockTableHolder(@NonNull View itemView, ICallBackTextWatcher nameWatcher, ICallBackTextWatcher priceWatcher, ICallBackTextWatcher countWatcher, MinusClickListener minusClickListener) {
         super(itemView);
@@ -32,9 +32,9 @@ public class StockTableHolder extends RecyclerView.ViewHolder {
         countView = itemView.findViewById(R.id.count);
         minusButton = itemView.findViewById(R.id.minus);
 
-        rmList = new ArrayList<>();
+        removeList = new ArrayList<>();
         minusButton.setOnClickListener(v -> {
-            rmList.add(getAdapterPosition());
+            removeList.add(getAdapterPosition());
         });
 
         batNameView.addTextChangedListener(new TextWatcher() {

@@ -12,12 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.batman.db.TransactionStockData;
-import com.example.batman.db.TransactionSellData;
 import com.example.batman.R;
-import com.example.batman.sellmode.sellingprice.SellingPriceTableModifyActivity;
-import com.example.batman.share.TransactionStockTableAdapter;
+import com.example.batman.db.TransactionSellData;
+import com.example.batman.db.TransactionStockData;
 import com.example.batman.share.TransactionSellTableAdapter;
+import com.example.batman.share.TransactionStockTableAdapter;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -92,12 +91,12 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
 
         ArrayList<TransactionSellData> originSellList;
         ArrayList<TransactionStockData> originStockList;
-        ArrayList<Integer> rmList;
+        ArrayList<Integer> removeList;
         if (isSell) {
             originSellList = (ArrayList<TransactionSellData>) intent.getSerializableExtra("transactionSellList");
-            rmList = ((TransactionSellTableAdapter) recyclerView.getAdapter()).getRmList();
+            removeList = ((TransactionSellTableAdapter) recyclerView.getAdapter()).getRemoveList();
 
-            rmList.forEach(i -> {
+            removeList.forEach(i -> {
                 TransactionSellData data = originSellList.get(i);
                 db.collection("Stock").document(data.getBatName()).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -132,9 +131,9 @@ public class TransactionTableModifyActivity extends AppCompatActivity {
             }
         } else {
             originStockList = (ArrayList<TransactionStockData>) intent.getSerializableExtra("transactionStockList");
-            rmList = ((TransactionStockTableAdapter) recyclerView.getAdapter()).getRmList();
+            removeList = ((TransactionStockTableAdapter) recyclerView.getAdapter()).getRemoveList();
 
-            rmList.forEach(i -> {
+            removeList.forEach(i -> {
                 TransactionStockData data = originStockList.get(i);
                 db.collection("Stock").document(data.getBatName()).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
