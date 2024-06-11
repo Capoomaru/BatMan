@@ -6,65 +6,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class TransactionSellData extends TransactionData implements Serializable, Cloneable {
 
     private int sellPrice;
     private String carNumber;
     private String carCategory;
     private String phoneNumber;
+    @Setter
     private String findString;
 
-    public int getPrice() {
-        return sellPrice;
-    }
-
-    public void setPrice(int Price) {
-        this.sellPrice = Price;
-    }
-
-    public int getSellPrice() {
-        return sellPrice;
-    }
-
-    public void setSellPrice(int sellPrice) {
-        this.sellPrice = sellPrice;
-    }
-
-    public String getCarNumber() {
-        return carNumber;
-    }
-
-    public void setCarNumber(String carNumber) {
-        this.carNumber = carNumber;
-    }
-
-    public String getCarCategory() {
-        return carCategory;
-    }
-
-    public void setCarCategory(String carCategory) {
-        this.carCategory = carCategory;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getFindString() {
-        this.findString = carNumber+carCategory+phoneNumber;
+        this.findString = carNumber + carCategory + phoneNumber;
         return findString;
     }
 
-    public void setFindString(String findString) {
-        this.findString = findString;
+    public void setFindString() {
+        this.findString = carNumber + carCategory + phoneNumber;
     }
-    public void setFindString() { this.findString = carNumber+carCategory+phoneNumber; }
-
-    public TransactionSellData() {super();}
 
     public TransactionSellData(String batName, boolean isCard, boolean isStock, Date date, int sellPrice, int count, int totalPrice) {
         super(batName, isCard, isStock, date, count, totalPrice);
@@ -76,7 +41,7 @@ public class TransactionSellData extends TransactionData implements Serializable
         this.carNumber = carNumber;
         this.carCategory = carCategory;
         this.phoneNumber = phoneNumber;
-        this.findString = carNumber+carCategory+phoneNumber;
+        this.findString = carNumber + carCategory + phoneNumber;
     }
 
     @Override
@@ -113,7 +78,7 @@ public class TransactionSellData extends TransactionData implements Serializable
 
     public static ArrayList<TransactionSellData> cloneList(ArrayList<TransactionSellData> sourceList) {
         ArrayList<TransactionSellData> destList = new ArrayList<>();
-        for(TransactionSellData source : sourceList) {
+        for (TransactionSellData source : sourceList) {
             try {
                 destList.add(source.clone());
             } catch (CloneNotSupportedException e) {

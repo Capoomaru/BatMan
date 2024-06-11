@@ -5,55 +5,24 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+@AllArgsConstructor
 public class BatteryData implements Serializable, Cloneable {
     private String batName;
     private int purchasePrice;
     private int sellingPrice;
     private int count;
 
-    public String getBatName() {
-        return batName;
-    }
-
-    public void setBatName(String batName) {
-        this.batName = batName;
-    }
-
-    public int getPurchasePrice() {
-        return purchasePrice;
-    }
-
-    public void setPurchasePrice(int purchasePrice) {
-        this.purchasePrice = purchasePrice;
-    }
-
-    public int getSellingPrice() {
-        return sellingPrice;
-    }
-
-    public void setSellingPrice(int sellingPrice) {
-        this.sellingPrice = sellingPrice;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     public BatteryData() {
         this("", 0, 0, 0);
     }
 
-    public BatteryData(String batName, int purchasePrice, int sellingPrice, int count) {
-        this.batName = batName;
-        this.purchasePrice = purchasePrice;
-        this.sellingPrice = sellingPrice;
-        this.count = count;
-    }
-
+    @NonNull
     @Override
     public String toString() {
         return batName;

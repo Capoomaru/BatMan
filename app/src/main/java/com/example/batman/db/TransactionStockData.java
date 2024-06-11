@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@NoArgsConstructor
 public class TransactionStockData extends TransactionData implements Serializable, Cloneable {
     private int purchasePrice;
 
@@ -11,19 +18,9 @@ public class TransactionStockData extends TransactionData implements Serializabl
         return purchasePrice;
     }
 
-    public void setPrice(int Price) {
-        this.purchasePrice = Price;
+    public void setPrice(int price) {
+        this.purchasePrice = price;
     }
-
-    public int getPurchasePrice() {
-        return purchasePrice;
-    }
-
-    public void setPurchasePrice(int purchasePrice) {
-        this.purchasePrice = purchasePrice;
-    }
-
-    public TransactionStockData() {super();}
 
     public TransactionStockData(String batName, boolean isCard, boolean isStock, Date date, int purchasePrice, int count, int totalPrice) {
         super(batName, isCard, isStock, date, count, totalPrice);
@@ -50,7 +47,7 @@ public class TransactionStockData extends TransactionData implements Serializabl
 
     public static ArrayList<TransactionStockData> cloneList(ArrayList<TransactionStockData> sourceList) {
         ArrayList<TransactionStockData> destList = new ArrayList<>();
-        for(TransactionStockData source : sourceList) {
+        for (TransactionStockData source : sourceList) {
             try {
                 destList.add((TransactionStockData) source.clone());
             } catch (CloneNotSupportedException e) {
